@@ -9,7 +9,7 @@ mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER']='root'
 app.config['MYSQL_DATABASE_PASSWORD']='root'
-app.config['MYSQL_DATABASE_DB']='zeus'
+app.config['MYSQL_DATABASE_DB']='zeus_flask'
 app.config['MYSQL_DATABASE_HOST']='localhost'
 
 
