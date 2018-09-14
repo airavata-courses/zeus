@@ -1,0 +1,19 @@
+{
+  "name": "noderest_controller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "execsql": "0.0.3",
+    "express": "^4.16.3",
+    "mysql": "^2.16.0",
+    "node-mysql-importer": "0.0.10"
+  }
+}
