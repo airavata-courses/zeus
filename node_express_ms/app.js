@@ -29,7 +29,7 @@ app.post('/login',function(req,res){
         host     : 'localhost',
         user     : 'root',
         password : 'admin',
-        database : 'zeus'
+        database : 'zeus_node'
       });
     connection.connect();
     
