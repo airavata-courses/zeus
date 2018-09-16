@@ -5,7 +5,7 @@ var app = express();
 var mysql      = require('mysql');
 var bodyParser=require("body-parser");
 const importer = require('node-mysql-importer')
-
+var request = require('request')
 
 
 app.set('port', process.env.PORT || 8080);
@@ -46,7 +46,7 @@ app.get('/login',function(req,res){
 });
 
 app.post('/login',function(req,res){
-    
+	//console.log("cas");
     var email= req.body.uname;
     var password = req.body.psw;
     request.post(
@@ -76,9 +76,6 @@ app.get('/logout',function(req, res){
 app.get('/signup', function(req, res){
     res.render('signup');
 });
-
-
-
 
 
 app.post('/signup',function(req,res){
