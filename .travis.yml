@@ -8,4 +8,4 @@ cache:
     - $HOME/.m2
 
 script:
-  - cd Java_Spring_Ms && mvn clean package
+  - cd Java_Spring_Ms && mvn clean install -DskipTests=false
