@@ -18,7 +18,8 @@ addons:
       - mysql-server
       - mysql-client
 
-before_script:  
+before_install:
+  - mysql_upgrade  
   - mysql -u root -e 'CREATE DATABASE zeus_spring;'
   - mysql -u root -e "CREATE USER IF NOT EXISTS 'aravind'@'localhost' IDENTIFIED WITH mysql_native_password BY 'aravind';"
   - mysql -u root -e "GRANT ALL ON zeus_spring.* TO 'aravind'@'localhost';"
