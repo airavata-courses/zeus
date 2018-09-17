@@ -4,6 +4,7 @@ var  path = require('path');
 var app = express();
 var mysql      = require('mysql');
 var bodyParser=require("body-parser");
+var MYSQLCONNECTION = require('./constants');
 
 
 app.set('port', process.env.PORT || 8080);
@@ -27,8 +28,8 @@ app.post('/login',function(req,res){
 
     var connection = mysql.createConnection({
         host     : 'localhost',
-        user     : 'root',
-        password : 'admin',
+        user     : MYSQLCONNECTION.MYSQL_USERNAME,
+        password : MYSQLCONNECTION.MYSQL_PASSWORD,
         database : 'zeus_node'
       });
     connection.connect();
@@ -87,9 +88,9 @@ app.post('/signup',function(req,res){
 
     var connection = mysql.createConnection({
         host     : 'localhost',
-        user     : 'root',
-        password : 'admin',
-        database : 'zeus'
+        user     : MYSQLCONNECTION.MYSQL_USERNAME,
+        password : MYSQLCONNECTION.MYSQL_PASSWORD,
+        database : 'zeus_node'
       });
     connection.connect();
     
