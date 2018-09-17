@@ -6,7 +6,7 @@ var mysql      = require('mysql');
 var bodyParser=require("body-parser");
 const importer = require('node-mysql-importer')
 var request = require('request')
-
+var MYSQLCONNECTION = require('./constants');
 
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
@@ -15,11 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// const mysqlServer = `mysql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_SERVER}`;
+// console.log(mysqlServer);
 
 importer.config({
     'host': 'localhost',
-    'user': 'root',
-    'password': 'root'
+    'user': MYSQLCONNECTION.MYSQL_USERNAME,
+    'password': MYSQLCONNECTION.MYSQL_PASSWORD
 });
 
 importer.importSQL('data.sql').then( () => {
