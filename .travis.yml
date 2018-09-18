@@ -1,9 +1,7 @@
 language: node_js
 
 node_js:
-  - "iojs"
-  - "7"
-
+  - "stable"
 
 services:
  - mysql
@@ -24,7 +22,7 @@ before_install:
   - cd noderest_controller
   
 install:
-  - npm install
+  - npm install && npm install --save-dev mocha
 
 script:
   - npm test
