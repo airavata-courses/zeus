@@ -24,8 +24,7 @@ before_install:
   - cd noderest_controller
   
 install:
-  - npm i -g npm@5.7.1 
-  - npm ci
+  - npm install
 
 script:
   - npm test
