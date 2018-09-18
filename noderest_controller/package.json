@@ -4,7 +4,7 @@
   "description": "Node ms",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "./node_modules/.bin/mocha"
   },
   "author": "Haritha",
   "repository": {
