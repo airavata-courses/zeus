@@ -22,6 +22,6 @@ before_install:
   - mysql -u root -e "GRANT ALL ON zeus_spring.* TO 'haritha'@'localhost';"
 
 script:
-  - cd noderest_controller && node install && npm test && npm start
+  - cd noderest_controller && npm install && npm test && npm start
 
 
