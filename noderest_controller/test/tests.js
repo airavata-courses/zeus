@@ -1,5 +1,5 @@
 var server = require('../app.js');
-var expect = require('Chai').expect;
+var expect = require('chai').expect;
 var request = require('request');
 
 describe('Testing Box', function() {
