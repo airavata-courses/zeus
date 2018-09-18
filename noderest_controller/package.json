@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "install": "npm install",
+    "install": "npm install --loglevel=error",
     "start": "node app.js",
     "test": "mocha"
   },
