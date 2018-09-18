@@ -112,3 +112,4 @@ app.get("/home", function(req, response){
     response.render('home')
 });
 
+module.exports = app;

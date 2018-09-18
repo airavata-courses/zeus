@@ -1,20 +1,29 @@
 {
   "name": "noderest_controller",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node ms",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
-  "author": "",
+  "author": "Haritha",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/npm/cli.git"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
     "ejs": "^2.6.1",
     "execsql": "0.0.3",
     "express": "^4.16.3",
+    "mocha": "^5.2.0",
     "mysql": "^2.16.0",
     "node-mysql-importer": "0.0.10",
     "request": "^2.88.0"
-  }
+  },
+  "readme": "README.md"
+
+
 }
