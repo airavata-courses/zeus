@@ -22,7 +22,9 @@ before_install:
   - cd node_express_ms
   
 install:
-  - npm install && npm install --save-dev mocha && npm install --save-dev chai
-# testpush
+  - npm install 
+  - npm install --save-dev mocha
+  - npm install -g chai
+
 script:
   - npm test
