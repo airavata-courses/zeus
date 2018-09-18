@@ -1,14 +1,18 @@
 {
   "name": "noderest_controller",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node ms",
   "main": "app.js",
   "scripts": {
     "install": "npm install --loglevel=error",
     "start": "node app.js",
     "test": "mocha"
   },
-  "author": "",
+  "author": "Haritha",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/npm/cli.git"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
