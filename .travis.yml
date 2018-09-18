@@ -24,7 +24,6 @@ before_install:
 install:
   - npm install
   - npm install --save-dev mocha
-  - npm install --save-dev chai
 
 script:
   - npm test
