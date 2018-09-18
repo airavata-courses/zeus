@@ -1,8 +1,9 @@
 language: node_js
-script: true
+
 node_js:
  - "iojs"
  - "7"
+
 services:
  - mysql
 
@@ -19,5 +20,8 @@ before_install:
   - mysql -u root -e 'CREATE DATABASE zeus_node;'
   - mysql -u root -e "CREATE USER IF NOT EXISTS 'haritha'@'localhost' IDENTIFIED WITH mysql_native_password BY 'haritha';"
   - mysql -u root -e "GRANT ALL ON zeus_spring.* TO 'haritha'@'localhost';"
+
+script:
+  - cd noderest_controller && node install && npm test && npm start
 
 
