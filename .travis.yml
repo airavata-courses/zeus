@@ -13,15 +13,15 @@ addons:
     packages:
       - mysql-server
       - mysql-client
-
+      
 before_install:
   - mysql_upgrade  
   - mysql -u root -e 'CREATE DATABASE zeus_node;'
   - mysql -u root -e "CREATE USER IF NOT EXISTS 'haritha'@'localhost' IDENTIFIED WITH mysql_native_password BY 'haritha';"
   - mysql -u root -e "GRANT ALL ON zeus_spring.* TO 'haritha'@'localhost';"
-
-install:
   - cd noderest_controller
+  
+install:
   - npm install
 
 script:
