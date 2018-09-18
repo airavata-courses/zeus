@@ -7,7 +7,7 @@
 //   });
 // });
 var server = require('../app.js');
-var expect = require('chai').expect;
+var expect = require('Chai').expect;
 var request = require('request');
 
 describe('Testing Box', function() {
@@ -19,25 +19,19 @@ describe('Testing Box', function() {
 })
 
 
-describe('server response', function () {
-  // let server;
-  // before(function () {
-  //  var app = require('http');
-  //  server=app.createServer();
-  //  server.listen(3002);
-  //   // server.listen(3002);
-  // });
-  before(function () {
-    server.listen(3002);
-  });
-  it('Check server is open', function (done){
-    request.get('http://localhost:3002', function (err, res, body){
-    // console.log(res);
-    expect(res.statusCode).to.equal(200);
-    //expect(res.body).to.equal('wrong header');
-    done();
-    });
-  });
+// describe('server response', function () {
+  
+//   before(function () {
+//     server.listen(3002);
+//   });
+//   it('Check server is open', function (done){
+//     request.get('http://localhost:3002', function (err, res, body){
+//     // console.log(res);
+//     expect(res.statusCode).to.equal(200);
+//     //expect(res.body).to.equal('wrong header');
+//     done();
+//     });
+//   });
 
-});
+// });
 
