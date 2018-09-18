@@ -119,6 +119,6 @@ app.post('/signup',function(req,res){
     });
 });
 
-
+module.exports=app;
 
 

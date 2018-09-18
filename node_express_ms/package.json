@@ -9,7 +9,7 @@
   "author": "Haritha",
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/cli.git"
+    "url": "https://github.com/airavata-courses/zeus"
   },
   "license": "ISC",
   "dependencies": {
