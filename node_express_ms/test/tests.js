@@ -27,9 +27,12 @@ describe('server response', function () {
   //  server.listen(3002);
   //   // server.listen(3002);
   // });
+  before(function () {
+    server.listen(3002);
+  });
   it('Check server is open', function (done){
     request.get('http://localhost:3002', function (err, res, body){
-    //console.log(res);
+    // console.log(res);
     expect(res.statusCode).to.equal(200);
     //expect(res.body).to.equal('wrong header');
     done();

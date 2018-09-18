@@ -14,12 +14,12 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE USER IF NOT EXISTS 'aravind'@'localhost' IDENTIFIED WITH mysql_native_password BY 'aravind';
-GRANT ALL ON *.* TO 'aravind'@'localhost';
-DROP DATABASE IF EXISTS `zeus_flask`;
-CREATE DATABASE IF NOT EXISTS `zeus` ;
+-- CREATE USER IF NOT EXISTS 'haritha'@'localhost' IDENTIFIED WITH mysql_native_password BY 'aravind';
+-- GRANT ALL ON *.* TO 'haritha'@'localhost';
+-- DROP DATABASE IF EXISTS `zeus_node`;
+CREATE DATABASE IF NOT EXISTS `zeus_node` ;
 
-USE `zeus`;
+USE `zeus_node`;
 --
 -- Table structure for table `CategoryTable`
 --
