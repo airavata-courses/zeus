@@ -13,7 +13,7 @@ addons:
     packages:
       - mysql-server
       - mysql-client
-      
+
 before_install:
   - mysql_upgrade  
   - mysql -u root -e 'CREATE DATABASE zeus_node;'
@@ -22,7 +22,8 @@ before_install:
   - cd noderest_controller
   
 install:
-  - npm install
+  - npm i -g npm@5.7.1 
+  - npm ci
 
 script:
   - npm test
