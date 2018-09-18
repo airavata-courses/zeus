@@ -22,7 +22,9 @@ before_install:
   - cd noderest_controller
   
 install:
-  - npm install && npm install --save-dev mocha && npm install --save-dev chai
+  - npm install
+  - npm install --save-dev mocha
+  - npm install --save-dev chai
 
 script:
   - npm test
