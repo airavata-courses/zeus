@@ -22,7 +22,7 @@ before_install:
   - cd noderest_controller
   
 install:
-  - npm install
+  - npm install || cat npm-debug.log
   - npm install --save-dev mocha
 
 script:
