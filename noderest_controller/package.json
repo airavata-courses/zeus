@@ -4,8 +4,6 @@
   "description": "Node ms",
   "main": "app.js",
   "scripts": {
-    "install": "npm install",
-    "start": "node app.js",
     "test": "mocha"
   },
   "author": "Haritha",
