@@ -1,10 +1,15 @@
-language: node_js
 
-node_js:
-  - "stable"
+language: java
 
+jdk:
+  - oraclejdk8
+  
 services:
- - mysql
+  - mysql
+  
+dist: trusty
+
+sudo: required
 
 addons:
   apt:
@@ -16,15 +21,14 @@ addons:
 
 before_install:
   - mysql_upgrade  
-  - mysql -u root -e 'CREATE DATABASE zeus_node;'
-  - mysql -u root -e "CREATE USER IF NOT EXISTS 'haritha'@'localhost' IDENTIFIED WITH mysql_native_password BY 'haritha';"
-  - mysql -u root -e "GRANT ALL ON *.* TO 'haritha'@'localhost';"
-  - cd noderest_controller
+
+  - mysql -u root -e 'CREATE DATABASE zeus_spring;'
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'aravind'@'localhost' IDENTIFIED WITH mysql_native_password BY 'aravind';"
+  - mysql -u root -e "GRANT ALL ON zeus_spring.* TO 'aravind'@'localhost';"
   
-install:
-  - npm install || cat npm-debug.log
-  - npm install --save-dev mocha
-  - npm install -g chai
+cache:
+  directories:
+    - $HOME/.m2
 
 script:
-  - npm test
+  - cd Java_Spring_Ms && mvn clean install -DskipTests=false
