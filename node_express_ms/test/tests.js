@@ -23,7 +23,7 @@ describe('server response', function () {
   
   before(function () {
     // console.log("111111"+server);
-    server.listen(3003);
+    a=server.listen(3003);
   });
   it('Check server is open', function (done){
     request.get('http://localhost:3003', function (err, res, body){
@@ -32,6 +32,11 @@ describe('server response', function () {
     //expect(res.body).to.equal('wrong header');
     done();
     });
+  });
+  after(function() {
+    // runs after all tests in this block
+    console.log("cdnskc");
+    a.close();
   });
 
 });
