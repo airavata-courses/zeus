@@ -4,14 +4,16 @@ function getSearchResults(e){
   var searchStr = document.getElementById("search").value;
   if(searchStr!=''){
     $.ajax({
-      url: "http://localhost:8090/search/v1/"+searchStr,
+      url: "http://localhost:3050/getSearchVideos",
       crossDomain: true,
+      data: {data: searchStr},
       success: function(result){
-        console.log(result);
+        console.log(typeof JSON.parse(result));
         if(result.length>0){
-          autocomplete(document.getElementById("search"),result)
+          autocomplete(document.getElementById("search"),JSON.parse(result))
         }
     }});
+    
   }
 }
 
@@ -113,12 +115,23 @@ function autocomplete(inp, arr) {
 }
 
 $(window).bind("load", function() {
+  // $.ajax({
+  //   url: "http://localhost:3050/getSearchVideos",
+  //   crossDomain: true,
+  //   data: {data: searchStr},
+  //   success: function(result){
+  //     console.log(typeof JSON.parse(result));
+  //     if(result.length>0){
+  //       autocomplete(document.getElementById("search"),JSON.parse(result))
+  //     }
+  // }});
   
   $.ajax({
-      url: "http://localhost:4000/getVideos",
+      url: "http://localhost:3050/getVideos",
       crossDomain: true,
       dataType:'json',
       success: function(result){
+        result=JSON.parse(result);
         console.log("helloooooo")
         console.log(result[0][6])
         // console.log($.parseJSON(result));
