@@ -5,7 +5,7 @@ var app = express();
 var mysql      = require('mysql');
 var bodyParser=require("body-parser");
 var MYSQLCONNECTION = require('./constants');
-
+var request = require('request');
 
 app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'ejs');
@@ -48,7 +48,6 @@ app.post('/login',function(req,res){
         })
         }
         else{
-        console.log('The solution is: ', results);
         if(results.length >0){
             if(results[0].PASSWORD == password){
                 res.send({
@@ -94,8 +93,7 @@ app.post('/signup',function(req,res){
       });
     connection.connect();
     
-    console.log(req.body.EMAIL);
-
+    
     var users={
         "EMAIL":req.body.EMAIL,
         "PASSWORD":req.body.PASSWORD,
@@ -118,6 +116,48 @@ app.post('/signup',function(req,res){
         }
     });
 });
+
+app.get('/getSearchVideos',function(req, res){
+
+    
+    request({
+        method: 'GET',
+        url: 'http://localhost:8090/search/v1/'+req.query.data
+      }, function (err, resp) {
+        if (err) return console.error(err.message);
+      
+        console.log(resp.body);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.setHeader('Content-Type', 'application/json');
+        console.log(JSON.stringify(resp.body));
+        res.send(JSON.stringify(resp.body));
+
+      });
+
+}); 
+
+app.get('/getVideos',function(req, res){
+
+    console.log("got the hit");
+    request({
+        method: 'GET',
+        url: 'http://localhost:4000/getVideos',
+      }, function (err, resp) {
+        if (err) return console.error(err.message);
+      
+        console.log(resp.body);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.setHeader('Content-Type', 'application/json');
+        console.log(JSON.stringify(resp.body));
+        res.send(JSON.stringify(resp.body));
+
+      });
+
+}); 
+
+
 
 module.exports=app;
 
