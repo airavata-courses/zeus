@@ -18,7 +18,7 @@ import com.abharatha.JavaSpringBoot.entity.VideoTable;
 
 @RestController
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@CrossOrigin(origins = "http://localhost:3001")
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/search/v1")
 public class VideoResource {
 
@@ -26,7 +26,7 @@ public class VideoResource {
 	private VideoTableDao repository;
 
 	@Order(Ordered.HIGHEST_PRECEDENCE)
-	@CrossOrigin(origins = "http://localhost:3001")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, path = "{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> searchVideos(@PathVariable("searchStr") String searchStr) {
 
