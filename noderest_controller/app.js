@@ -15,9 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// const mysqlServer = `mysql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_SERVER}`;
-// console.log(mysqlServer);
-
 importer.config({
     'host': 'localhost',
     'user': MYSQLCONNECTION.MYSQL_USERNAME,
@@ -58,7 +55,6 @@ app.post('/login',function(req,res){
             password: req.body.psw
          } },
         function (error, response, body) {
-            console.log(response.body.code);
             if (response.body.code == 200) {
                 res.redirect('/home');
             }
@@ -106,10 +102,46 @@ app.post('/signup',function(req,res){
     
 });
 
-
-
 app.get("/home", function(req, response){
     response.render('home')
 });
+
+app.get('/getSearchVideos',function(req, res){
+    
+    request({
+        method: 'GET',
+        url: 'http://localhost:8090/search/v1/'+req.query.data
+      }, function (err, resp) {
+        if (err) return console.error(err.message);
+      
+        console.log(resp.body);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.setHeader('Content-Type', 'application/json');
+        console.log(JSON.stringify(resp.body));
+        res.send(JSON.stringify(resp.body));
+
+      });
+
+}); 
+
+app.get('/getVideos',function(req, res){
+
+    request({
+        method: 'GET',
+        url: 'http://localhost:4000/getVideos',
+      }, function (err, resp) {
+        if (err) return console.error(err.message);
+      
+        console.log(resp.body);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.setHeader('Content-Type', 'application/json');
+        console.log(JSON.stringify(resp.body));
+        res.send(JSON.stringify(resp.body));
+
+      });
+
+}); 
 
 module.exports = app;

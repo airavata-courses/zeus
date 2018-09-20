@@ -4,7 +4,7 @@ function getSearchResults(e){
   var searchStr = document.getElementById("search").value;
   if(searchStr!=''){
     $.ajax({
-      url: "http://localhost:3050/getSearchVideos",
+      url: "/getSearchVideos",
       crossDomain: true,
       data: {data: searchStr},
       success: function(result){
@@ -127,7 +127,7 @@ $(window).bind("load", function() {
   // }});
   
   $.ajax({
-      url: "http://localhost:3050/getVideos",
+      url: "/getVideos",
       crossDomain: true,
       dataType:'json',
       success: function(result){
