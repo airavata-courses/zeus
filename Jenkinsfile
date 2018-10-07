@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         
-        stage('Kill existing ports'){
+        stage('Kill Running Shells'){
             steps{
                 sh 'echo "hello"'
                 sh 'set pid1 = $sudo lsof -t -i:3001'
@@ -11,6 +11,15 @@ pipeline {
             }
         }
 
+        stage('Check and Ready the Host environment'){
+            steps{
+                //Run Ansible file here
+                sh 'echo "hello"'
+                sh 'set pid1 = $sudo lsof -t -i:3001'
+                sh 'sudo kill -9 $pid1'
+            }
+        }
+        
         stage('Cloning Project repos'){
             steps{
                 dir('scripts'){
@@ -27,34 +36,31 @@ pipeline {
             }
         }
 
-        stage('Parallel Builds and Deploys for MicroServices') {
-            parallel{    
-                stage('Deploying Node Express') {
+        stage('Deploying Node Express') {
                     steps {
                         dir('scripts/scripts'){
                             sh 'sudo bash ./Node_express_ms.sh'
                         }
                     }
                 }
-                stage('Deploying Python Flask') {
+        
+        stage('Deploying Python Flask') {
                     steps {
                         dir('scripts/scripts'){
                             sh 'sudo bash ./python_flash_ms.sh'
                         }
                     }
                 }
-                stage('Deploying Spring Boot') {
-                    steps {
-                            dir('scripts/scripts'){
-                                sh 'sudo bash ./java_spring.sh'
-                            }
-                        }
-                    }
+        
+        stage('Deploying Spring Boot') {
+            steps {
+                dir('scripts/scripts'){
+                    sh 'sudo bash ./java_spring.sh'
+                }
             }
         }
         
-        
-        
+
         stage('Final') {
             steps {
                 echo 'Finsihed Deploying....'
