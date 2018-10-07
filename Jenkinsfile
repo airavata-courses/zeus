@@ -21,8 +21,9 @@ pipeline {
         
         stage('Deploying DB and Controller') {
             steps {
-                sh 'cd scripts'
-                sh 'sudo bash ./Node_rest_controller.sh'
+                dir('scripts/scripts'){
+                    sh 'sudo bash ./Node_rest_controller.sh'
+                }
             }
         }
 
