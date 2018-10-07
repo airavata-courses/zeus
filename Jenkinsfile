@@ -1,4 +1,5 @@
 pipeline {
+def pid1
     agent any
 
     stages {
