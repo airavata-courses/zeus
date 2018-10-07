@@ -25,10 +25,10 @@ USE `zeus_flask`;
 -- Table structure for table `VideoTable`
 --
 
-DROP TABLE IF EXISTS `VideoTable`;
+DROP TABLE IF EXISTS `videotable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `VideoTable` (
+CREATE TABLE `videotable` (
   `VIDEOTBID` int(11) NOT NULL,
   `VIDEONAME` varchar(45) DEFAULT NULL,
   `VIDEODESC` varchar(100) DEFAULT NULL,
@@ -45,9 +45,9 @@ CREATE TABLE `VideoTable` (
 -- Dumping data for table `VideoTable`
 --
 
-LOCK TABLES `VideoTable` WRITE;
+LOCK TABLES `videotable` WRITE;
 /*!40000 ALTER TABLE `VideoTable` DISABLE KEYS */;
-INSERT INTO `VideoTable` VALUES (1,'dailyroutines','dailyroutines of people','https://www.youtube.com/watch?v=Xb02qGHngb0',1,1000,'http://womcdn.s3.amazonaws.com/common/15101405345002-232023931.jpg?h330-w330'),(2,'TedX','How cancer cells communicate','https://www.youtube.com/watch?v=762c6pFpoqg',1,2000,'https://cdn.slidesharecdn.com/ss_thumbnails/howtotedx-110312020226-phpapp01-thumbnail-4.jpg?cb=1365429305'),(3,'SharkTank','Shark Tank Kevin oLeary gets into an argument!','https://www.youtube.com/watch?v=Kgk7mjnRx-4',2,3000,'https://m.media-amazon.com/images/M/MV5BODY3MzA4ZmItZjJkNC00Nzc1LWI4ODUtZjQ5YjE1MjJlMDIzXkEyXkFqcGdeQXVyNjg2MzA5MTg@._V1_.jpg'),(4,'EllenShow','Ellen Couldn’t Believe This Amazon Service Is Real','https://www.youtube.com/watch?v=07kkUVphTFg',3,4000,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQChbaC2ghkNEaq3Jy3XPM5ZNjahg5m6q4T_l0aajGBiYwB--Fiow'),(5,'Big Wave Surfing Compilation 2017','Big Wave Surfing Compilation 2017 ** REVISED **AMAZING FOOTAGE ','https://www.youtube.com/watch?v=rj7xMBxd5iY',2,5000,'https://i.ytimg.com/vi/rj7xMBxd5iY/default.jpg'),(6,'GoPro Surf: Inside the Barrels of Namibia','The term we scored waves in the surfing world gets thrown around','https://www.youtube.com/watch?v=pn7SFWpXURk',3,4000,'https://i.ytimg.com/vi/pn7SFWpXURk/default.jpg'),(8,'Surfing Big Wedge RawFootage','RAW FOOTAGE August 17 This was such an epic day of shooting!','https://www.youtube.com/watch?v=WauvB0aQq-s',1,6000,'https://i.ytimg.com/vi/WauvB0aQq-s/default.jpg'),(9,'Surfing POV | September 8th | 2018 (RAW)','ome decent south swell at play, tide rising with a semi tricky reform','https://www.youtube.com/watch?v=p291smnaDhI',2,5000,'https://i.ytimg.com/vi/3jwJUDC-Llg/default.jpg'),(10,'How to escape educations death valley','Sir Ken Robinson outlines 3 principles crucial for the human','https://www.ted.com/talks/ken_robinson_how_to_escape_education_s_death_valley',3,3000,'https://i.ytimg.com/vi/wX78iKhInsc/default.jpg'),(11,'Fun.: We Are Young ft. Janelle Monáe','Funs music video for We Are Young featuring Janelle Monáe from the album','https://www.youtube.com/watch?v=Sv6dMFF_yts',3,3000,'https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg');
+INSERT INTO `videotable` VALUES (1,'dailyroutines','dailyroutines of people','https://www.youtube.com/watch?v=Xb02qGHngb0',1,1000,'http://womcdn.s3.amazonaws.com/common/15101405345002-232023931.jpg?h330-w330'),(2,'TedX','How cancer cells communicate','https://www.youtube.com/watch?v=762c6pFpoqg',1,2000,'https://cdn.slidesharecdn.com/ss_thumbnails/howtotedx-110312020226-phpapp01-thumbnail-4.jpg?cb=1365429305'),(3,'SharkTank','Shark Tank Kevin oLeary gets into an argument!','https://www.youtube.com/watch?v=Kgk7mjnRx-4',2,3000,'https://m.media-amazon.com/images/M/MV5BODY3MzA4ZmItZjJkNC00Nzc1LWI4ODUtZjQ5YjE1MjJlMDIzXkEyXkFqcGdeQXVyNjg2MzA5MTg@._V1_.jpg'),(4,'EllenShow','Ellen Couldn’t Believe This Amazon Service Is Real','https://www.youtube.com/watch?v=07kkUVphTFg',3,4000,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQChbaC2ghkNEaq3Jy3XPM5ZNjahg5m6q4T_l0aajGBiYwB--Fiow'),(5,'Big Wave Surfing Compilation 2017','Big Wave Surfing Compilation 2017 ** REVISED **AMAZING FOOTAGE ','https://www.youtube.com/watch?v=rj7xMBxd5iY',2,5000,'https://i.ytimg.com/vi/rj7xMBxd5iY/default.jpg'),(6,'GoPro Surf: Inside the Barrels of Namibia','The term we scored waves in the surfing world gets thrown around','https://www.youtube.com/watch?v=pn7SFWpXURk',3,4000,'https://i.ytimg.com/vi/pn7SFWpXURk/default.jpg'),(8,'Surfing Big Wedge RawFootage','RAW FOOTAGE August 17 This was such an epic day of shooting!','https://www.youtube.com/watch?v=WauvB0aQq-s',1,6000,'https://i.ytimg.com/vi/WauvB0aQq-s/default.jpg'),(9,'Surfing POV | September 8th | 2018 (RAW)','ome decent south swell at play, tide rising with a semi tricky reform','https://www.youtube.com/watch?v=p291smnaDhI',2,5000,'https://i.ytimg.com/vi/3jwJUDC-Llg/default.jpg'),(10,'How to escape educations death valley','Sir Ken Robinson outlines 3 principles crucial for the human','https://www.ted.com/talks/ken_robinson_how_to_escape_education_s_death_valley',3,3000,'https://i.ytimg.com/vi/wX78iKhInsc/default.jpg'),(11,'Fun.: We Are Young ft. Janelle Monáe','Funs music video for We Are Young featuring Janelle Monáe from the album','https://www.youtube.com/watch?v=Sv6dMFF_yts',3,3000,'https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg');
 /*!40000 ALTER TABLE `VideoTable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,7 +78,7 @@ USE `zeus_node`;
 -- Table structure for table `UserTable`
 --
 
-DROP TABLE IF EXISTS `UserTable`;
+DROP TABLE IF EXISTS `usertable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `UserTable` (
@@ -95,9 +95,9 @@ CREATE TABLE `UserTable` (
 -- Dumping data for table `UserTable`
 --
 
-LOCK TABLES `UserTable` WRITE;
+LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `UserTable` DISABLE KEYS */;
-INSERT INTO `UserTable` VALUES (1,'haritha.cbit2010@gmail.com','test1','8129449014'),(2,'abharath@gmail.com','test2','3126084376'),(3,'shivteja@gmail.com','test3','6502509331'),(5,'hadama@iu.edu','test','8129559014'),(6,'aravind@gmail.com','test','8129559014'),(8,'test@gmail.com','test','8129559014'),(9,'abc@gmail.com','test','8129559014'),(10,'abc1@gmail.com','sds','8129559014'),(11,'priya@gmail.com','test','8129559014');
+INSERT INTO `usertable` VALUES (1,'haritha.cbit2010@gmail.com','test1','8129449014'),(2,'abharath@gmail.com','test2','3126084376'),(3,'shivteja@gmail.com','test3','6502509331'),(5,'hadama@iu.edu','test','8129559014'),(6,'aravind@gmail.com','test','8129559014'),(8,'test@gmail.com','test','8129559014'),(9,'abc@gmail.com','test','8129559014'),(10,'abc1@gmail.com','sds','8129559014'),(11,'priya@gmail.com','test','8129559014');
 /*!40000 ALTER TABLE `UserTable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,10 +127,10 @@ USE `zeus_spring`;
 -- Table structure for table `VideoTable`
 --
 
-DROP TABLE IF EXISTS `VideoTable`;
+DROP TABLE IF EXISTS `videotable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `VideoTable` (
+CREATE TABLE `videotable` (
   `VIDEOTBID` int(11) NOT NULL,
   `VIDEONAME` varchar(45) DEFAULT NULL,
   `VIDEODESC` varchar(100) DEFAULT NULL,
@@ -146,9 +146,9 @@ CREATE TABLE `VideoTable` (
 -- Dumping data for table `VideoTable`
 --
 
-LOCK TABLES `VideoTable` WRITE;
+LOCK TABLES `videotable` WRITE;
 /*!40000 ALTER TABLE `VideoTable` DISABLE KEYS */;
-INSERT INTO `VideoTable` VALUES (1,'dailyroutines','dailyroutines of people','https://www.youtube.com/watch?v=Xb02qGHngb0',1,1000,'http://womcdn.s3.amazonaws.com/common/15101405345002-232023931.jpg?h330-w330'),(2,'TedX','How cancer cells communicate','https://www.youtube.com/watch?v=762c6pFpoqg',1,2000,'https://cdn.slidesharecdn.com/ss_thumbnails/howtotedx-110312020226-phpapp01-thumbnail-4.jpg?cb=1365429305'),(3,'SharkTank','Shark Tank Kevin oLeary gets into an argument!','https://www.youtube.com/watch?v=Kgk7mjnRx-4',2,3000,'https://m.media-amazon.com/images/M/MV5BODY3MzA4ZmItZjJkNC00Nzc1LWI4ODUtZjQ5YjE1MjJlMDIzXkEyXkFqcGdeQXVyNjg2MzA5MTg@._V1_.jpg'),(4,'EllenShow','Ellen Couldn’t Believe This Amazon Service Is Real','https://www.youtube.com/watch?v=07kkUVphTFg',3,4000,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQChbaC2ghkNEaq3Jy3XPM5ZNjahg5m6q4T_l0aajGBiYwB--Fiow'),(5,'Big Wave Surfing Compilation 2017','Big Wave Surfing Compilation 2017 ** REVISED **AMAZING FOOTAGE ','https://www.youtube.com/watch?v=rj7xMBxd5iY',2,5000,'https://i.ytimg.com/vi/rj7xMBxd5iY/default.jpg'),(6,'GoPro Surf: Inside the Barrels of Namibia','The term we scored waves in the surfing world gets thrown around','https://www.youtube.com/watch?v=pn7SFWpXURk',3,4000,'https://i.ytimg.com/vi/pn7SFWpXURk/default.jpg'),(8,'Surfing Big Wedge RawFootage','RAW FOOTAGE August 17 This was such an epic day of shooting!','https://www.youtube.com/watch?v=WauvB0aQq-s',1,6000,'https://i.ytimg.com/vi/WauvB0aQq-s/default.jpg'),(9,'Surfing POV | September 8th | 2018 (RAW)','ome decent south swell at play, tide rising with a semi tricky reform','https://www.youtube.com/watch?v=p291smnaDhI',2,5000,'https://i.ytimg.com/vi/3jwJUDC-Llg/default.jpg'),(10,'How to escape educations death valley','Sir Ken Robinson outlines 3 principles crucial for the human','https://www.ted.com/talks/ken_robinson_how_to_escape_education_s_death_valley',3,3000,'https://i.ytimg.com/vi/wX78iKhInsc/default.jpg'),(11,'Fun.: We Are Young ft. Janelle Monáe','Funs music video for We Are Young featuring Janelle Monáe from the album','https://www.youtube.com/watch?v=Sv6dMFF_yts',3,3000,'https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg');
+INSERT INTO `videotable` VALUES (1,'dailyroutines','dailyroutines of people','https://www.youtube.com/watch?v=Xb02qGHngb0',1,1000,'http://womcdn.s3.amazonaws.com/common/15101405345002-232023931.jpg?h330-w330'),(2,'TedX','How cancer cells communicate','https://www.youtube.com/watch?v=762c6pFpoqg',1,2000,'https://cdn.slidesharecdn.com/ss_thumbnails/howtotedx-110312020226-phpapp01-thumbnail-4.jpg?cb=1365429305'),(3,'SharkTank','Shark Tank Kevin oLeary gets into an argument!','https://www.youtube.com/watch?v=Kgk7mjnRx-4',2,3000,'https://m.media-amazon.com/images/M/MV5BODY3MzA4ZmItZjJkNC00Nzc1LWI4ODUtZjQ5YjE1MjJlMDIzXkEyXkFqcGdeQXVyNjg2MzA5MTg@._V1_.jpg'),(4,'EllenShow','Ellen Couldn’t Believe This Amazon Service Is Real','https://www.youtube.com/watch?v=07kkUVphTFg',3,4000,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQChbaC2ghkNEaq3Jy3XPM5ZNjahg5m6q4T_l0aajGBiYwB--Fiow'),(5,'Big Wave Surfing Compilation 2017','Big Wave Surfing Compilation 2017 ** REVISED **AMAZING FOOTAGE ','https://www.youtube.com/watch?v=rj7xMBxd5iY',2,5000,'https://i.ytimg.com/vi/rj7xMBxd5iY/default.jpg'),(6,'GoPro Surf: Inside the Barrels of Namibia','The term we scored waves in the surfing world gets thrown around','https://www.youtube.com/watch?v=pn7SFWpXURk',3,4000,'https://i.ytimg.com/vi/pn7SFWpXURk/default.jpg'),(8,'Surfing Big Wedge RawFootage','RAW FOOTAGE August 17 This was such an epic day of shooting!','https://www.youtube.com/watch?v=WauvB0aQq-s',1,6000,'https://i.ytimg.com/vi/WauvB0aQq-s/default.jpg'),(9,'Surfing POV | September 8th | 2018 (RAW)','ome decent south swell at play, tide rising with a semi tricky reform','https://www.youtube.com/watch?v=p291smnaDhI',2,5000,'https://i.ytimg.com/vi/3jwJUDC-Llg/default.jpg'),(10,'How to escape educations death valley','Sir Ken Robinson outlines 3 principles crucial for the human','https://www.ted.com/talks/ken_robinson_how_to_escape_education_s_death_valley',3,3000,'https://i.ytimg.com/vi/wX78iKhInsc/default.jpg'),(11,'Fun.: We Are Young ft. Janelle Monáe','Funs music video for We Are Young featuring Janelle Monáe from the album','https://www.youtube.com/watch?v=Sv6dMFF_yts',3,3000,'https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg');
 /*!40000 ALTER TABLE `VideoTable` ENABLE KEYS */;
 UNLOCK TABLES;
 
