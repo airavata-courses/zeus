@@ -46,7 +46,7 @@ pipeline {
                 stage('Deploying Spring Boot') {
                     steps {
                             dir('scripts/scripts'){
-                                sh 'sudo bash ./python_flash_ms.sh'
+                                sh 'sudo bash ./java_spring.sh'
                             }
                         }
                     }
