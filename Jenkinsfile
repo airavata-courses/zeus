@@ -31,17 +31,23 @@ pipeline {
             parallel{    
                 stage('Deploying Node Express') {
                     steps {
-                        sh 'sudo bash ./Node_express_ms.sh'
+                        dir('scripts/scripts'){
+                            sh 'sudo bash ./Node_express_ms.sh'
+                        }
                     }
                 }
                 stage('Deploying Python Flask') {
                     steps {
-                        sh 'sudo bash ./python_flash_ms.sh'
+                        dir('scripts/scripts'){
+                            sh 'sudo bash ./python_flash_ms.sh'
+                        }
                     }
                 }
                 stage('Deploying Spring Boot') {
                     steps {
-                        sh 'sudo bash ./java_spring.sh'
+                            dir('scripts/scripts'){
+                                sh 'sudo bash ./python_flash_ms.sh'
+                            }
                         }
                     }
             }
