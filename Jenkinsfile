@@ -13,7 +13,7 @@ pipeline {
 
         stage('Cloning Project repos'){
             steps{
-                sh 'cd ./scripts'
+                sh 'cd scripts'
                 sh 'sudo bash ./GetProject.sh'
             }
         }
