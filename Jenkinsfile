@@ -5,10 +5,10 @@ pipeline {
         
         stage('Kill existing ports'){
             steps{
-                set +e
+                sh 'set +e'
                 sh 'echo "hello"'
                 sh 'sudo fuser -k 3001/tcp'
-                set -e
+                sh 'set -e'
             }
         }
 
