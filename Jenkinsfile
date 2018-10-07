@@ -7,6 +7,8 @@ pipeline {
             steps{
                 sh 'echo "hello"'
                 sh 'set pid1 = $sudo lsof -t -i:3001'
+                sh 'set pid2 = $sudo lsof -t -i:8080'
+                sh 'echo $pid2'
                 sh 'sudo kill -9 $pid1'
             }
         }
