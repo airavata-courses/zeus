@@ -1,5 +1,8 @@
 pipeline {
-def pid1
+    environment {
+     pid1 = "foo"
+   }
+
     agent any
 
     stages {
@@ -8,7 +11,7 @@ def pid1
             steps{
                 sh 'echo "hello"'
                 pid1 = sh(returnStdout: true, script: 'sudo lsof -t -i:3001')
-                sh 'sudo kill -9 $pid1'
+                sh 'sudo kill -9 ${pid1}'
             }
         }
 
