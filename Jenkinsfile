@@ -13,14 +13,15 @@ pipeline {
 
         stage('Cloning Project repos'){
             steps{
-                sh 'cd  scripts'
-                sh 'sudo bash ./GetProject.sh'
+                dir('scripts'){
+                    sh 'sudo bash ./GetProject.sh'
+                }
             }
         }
         
         stage('Deploying DB and Controller') {
             steps {
-                sh 'cd  scripts'
+                sh 'cd scripts'
                 sh 'sudo bash ./Node_rest_controller.sh'
             }
         }
