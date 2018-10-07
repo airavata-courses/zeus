@@ -6,7 +6,7 @@ pipeline {
             steps{
                 sh ''' 
                     pid1 = sh(returnStdout: true, script: 'sudo lsof -t -i 3001')
-                    sudo kill -9 pid1
+                    sudo kill -9 $pid1
                 '''
             }
         }
