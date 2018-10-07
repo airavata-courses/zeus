@@ -5,8 +5,7 @@ pipeline {
         stage('Kill existing ports'){
             steps{
                 sh ''' 
-                    pid1 = sh(returnStdout: true, script: 'sudo lsof -t -i 3001')
-                    sudo kill -9 $pid1
+                    sudo fuser -k 3001/tcp
                 '''
             }
         }
