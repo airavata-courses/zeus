@@ -13,15 +13,14 @@ pipeline {
 
         stage('Cloning Project repos'){
             steps{
-                sh 'cd scripts'
-                sh 'sudo bash ./GetProject.sh'
+                sh 'sudo bash ./scripts/GetProject.sh'
             }
         }
         
         stage('Deploying DB and Controller') {
             steps {
-                sh 'cd ./scripts'
-                sh 'sudo bash ./Node_rest_controller.sh'
+                sh 'echo ls'
+                sh 'sudo bash ./scripts/scripts/Node_rest_controller.sh'
             }
         }
 
@@ -29,19 +28,16 @@ pipeline {
             parallel{    
                 stage('Deploying Node Express') {
                     steps {
-                        sh 'cd ./scripts'
                         sh 'sudo bash ./scripts/scripts/Node_express_ms.sh'
                     }
                 }
                 stage('Deploying Python Flask') {
                     steps {
-                        sh 'cd ./scripts'
                         sh 'sudo bash ./scripts/scripts/python_flash_ms.sh'
                     }
                 }
                 stage('Deploying Spring Boot') {
                     steps {
-                        sh 'cd ./scripts'
                         sh 'sudo bash ./scripts/scripts/java_spring.sh'
                         }
                     }
