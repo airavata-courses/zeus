@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Kill existing ports'){
             steps{
-                sh 'sudo kill -9 $(sudo lsof -t -i 3001)'
+                sh 'sudo fuser -k 3001/tcp'
             }
         }
         stage('Parallel Builds') {
