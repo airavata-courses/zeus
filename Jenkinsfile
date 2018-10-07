@@ -2,11 +2,15 @@ pipeline {
     agent any
 
     stages {
+        
         stage('Kill existing ports'){
             steps{
                 sh 'sudo fuser -k 3001/tcp'
+                sh 'echo "hello"'
             }
         }
+
+
         stage('Parallel Builds') {
             parallel{
                 stage('Build 1'){
@@ -21,15 +25,18 @@ pipeline {
                 }
             }
         }
+        
         stage('Test') {
             steps {
                 echo 'Testing..'
             }
         }
+        
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
         }
+
     }
 }
