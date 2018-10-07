@@ -11,33 +11,43 @@ pipeline {
             }
         }
 
-        stage('Cloning Porject repos'){
+        stage('Cloning Project repos'){
             steps{
                 sh 'sudo bash ./scripts/GetProject.sh'
             }
         }
+        
+        stage('Deploying DB and Controller') {
+            steps {
+                sh 'sudo bash ./scripts/scripts/Node_rest_controller.sh'
+            }
+        }
 
-
-        stage('Parallel Builds') {
-            parallel{
-                
-                stage('Build 2'){
+        stage('Parallel Builds and Deploys for MicroServices') {
+            parallel{    
+                stage('Deploying Node Express') {
                     steps {
-                        echo 'Building 2'
+                        sh 'sudo bash ./scripts/scripts/Node_express_ms.sh'
                     }
                 }
+                stage('Deploying Python Flask') {
+                    steps {
+                        sh 'sudo bash ./scripts/scripts/python_flash_ms.sh'
+                    }
+                }
+                stage('Deploying Spring Boot') {
+                    steps {
+                        sh 'sudo bash ./scripts/scripts/java_spring.sh'
+                        }
+                    }
             }
         }
         
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
         
-        stage('Deploy') {
+        
+        stage('Final') {
             steps {
-                echo 'Deploying....'
+                echo 'Finsihed Deploying....'
             }
         }
 
