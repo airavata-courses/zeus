@@ -27,7 +27,7 @@ def python_flask_ms():
     @app.route("/getVideos", methods = ['GET'])
     def getVideos():
         cursor = mysql.connect().cursor()
-        cursor.execute("SELECT * from VideoTable")
+        cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
         return jsonify(data)
 
