@@ -39,7 +39,7 @@ app.post('/login',function(req,res){
     var password = req.body.password;
     console.log(email);
     console.log(password);
-    connection.query('SELECT * FROM USERTABLE WHERE EMAIL = ?',[email], function (error, results, fields) {
+    connection.query('SELECT * FROM usertable WHERE EMAIL = ?',[email], function (error, results, fields) {
     if (error) {
         // console.log("error ocurred",error);
         res.send({
@@ -100,7 +100,7 @@ app.post('/signup',function(req,res){
         "PHONENO":req.body.PHONENO
     }
     
-    connection.query('INSERT INTO USERTABLE SET ?',users, function (error, results, fields) {
+    connection.query('INSERT INTO usertable SET ?',users, function (error, results, fields) {
         console.log(results);
         if (error) {
             res.send({
