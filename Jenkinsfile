@@ -1,8 +1,4 @@
 pipeline {
-    environment {
-     pid = "foo"
-   }
-
     agent any
 
     stages {
@@ -10,8 +6,8 @@ pipeline {
         stage('Kill existing ports'){
             steps{
                 sh 'echo "hello"'
-                sh """pid1 = $sudo lsof -t -i:3001"""
-                sh 'sudo kill -9 ${pid1}'
+                sh 'set pid1 = $sudo lsof -t -i:3001'
+                sh 'sudo kill -9 $pid1'
             }
         }
 
