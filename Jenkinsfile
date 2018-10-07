@@ -6,7 +6,7 @@ pipeline {
         stage('Kill existing ports'){
             steps{
                 sh 'echo "hello"'
-                sh 'pid1 = $(sudo lsof -t -i:9001)'
+                pid1 = sh(returnStdout: true, script: 'sudo lsof -t -i:3001')
                 sh 'sudo kill -9 $pid1'
             }
         }
