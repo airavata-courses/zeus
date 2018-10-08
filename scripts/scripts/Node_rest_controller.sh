@@ -3,4 +3,4 @@
 
 cd ../CompleteProject/NodeRestController/zeus/noderest_controller
 sudo npm install
-node app.js &
+nohup node app.js &
