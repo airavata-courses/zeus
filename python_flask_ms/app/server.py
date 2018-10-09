@@ -40,7 +40,7 @@ def python_flask_ms():
 
 if __name__ == '__main__':
    app = python_flask_ms()
-   app.run("localhost","4000")
+   app.run("0.0.0.0","4000")
 
 
 
