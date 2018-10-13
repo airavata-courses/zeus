@@ -71,9 +71,7 @@ app.get('/logout',function(req, res){
     res.redirect('/login');
 }); 
 
-app.get('/signup', function(req, res){
-    res.render('signup');
-});
+
 
 
 app.post('/signup',function(req,res){
@@ -114,11 +112,11 @@ app.get('/getSearchVideos',function(req, res){
       }, function (err, resp) {
         if (err) return console.error(err.message);
       
-        console.log(resp.body);
+        // console.log(resp.body);
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.setHeader('Content-Type', 'application/json');
-        console.log(JSON.stringify(resp.body));
+        // console.log(JSON.stringify(resp.body));
         res.send(JSON.stringify(resp.body));
 
       });
@@ -126,22 +124,29 @@ app.get('/getSearchVideos',function(req, res){
 }); 
 
 app.get('/getVideos',function(req, res){
-
+    
     request({
         method: 'GET',
         url: 'http://localhost:4000/getVideos',
       }, function (err, resp) {
         if (err) return console.error(err.message);
       
-        console.log(resp.body);
+        // console.log(resp.body);
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.setHeader('Content-Type', 'application/json');
-        console.log(JSON.stringify(resp.body));
+        // console.log(JSON.stringify(resp.body));
         res.send(JSON.stringify(resp.body));
 
       });
 
 }); 
+
+app.get('/playVideo',function(req, res){
+    console.log(req.query.url);
+    return res.render('playvideo',{ url: req.query.url}); 
+}); 
+
+
 
 module.exports = app;

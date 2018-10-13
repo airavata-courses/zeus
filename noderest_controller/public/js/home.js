@@ -8,7 +8,9 @@ function getSearchResults(e){
       crossDomain: true,
       data: {data: searchStr},
       success: function(result){
-        console.log(typeof JSON.parse(result));
+        console.log("TESTINGMAX");
+        console.log(JSON.parse(result));
+        // console.log(typeof JSON.parse(result));
         if(result.length>0){
           autocomplete(document.getElementById("search"),JSON.parse(result))
         }
@@ -18,6 +20,10 @@ function getSearchResults(e){
 }
 
 function autocomplete(inp, arr) {
+  console.log("CheckMax");
+  // console.log(inp);
+   console.log(arr);
+  console.log(arr[0].videoLink);
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -37,25 +43,32 @@ function autocomplete(inp, arr) {
       /*for each item in the array...*/
       for (i = 0; i < arr.length; i++) {
         /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+        if(arr[i].videoName.toUpperCase().includes(val.toUpperCase())){
+        //  if(arr[i].toUpperCase().includes(val.toUpperCase())){
+        
           /*create a DIV element for each matching element:*/
           b = document.createElement("DIV");
           /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML = "<strong>" + arr[i].videoName.substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].videoName.substr(val.length);
           /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += "<input type='hidden' value='" + arr[i].videoName + "'><input type='hidden' value='" + arr[i].videoLink + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
+              console.log(e);
+              var url = this.getElementsByTagName("input")[1].value;
               inp.value = this.getElementsByTagName("input")[0].value;
+              window.location="/playVideo?url="+url;
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
           });
           a.appendChild(b);
+
         }
       }
+
   });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function(e) {
@@ -115,32 +128,29 @@ function autocomplete(inp, arr) {
 }
 
 $(window).bind("load", function() {
-  // $.ajax({
-  //   url: "http://localhost:3050/getSearchVideos",
-  //   crossDomain: true,
-  //   data: {data: searchStr},
-  //   success: function(result){
-  //     console.log(typeof JSON.parse(result));
-  //     if(result.length>0){
-  //       autocomplete(document.getElementById("search"),JSON.parse(result))
-  //     }
-  // }});
-  
+
+  console.log("test");
   $.ajax({
       url: "/getVideos",
       crossDomain: true,
       dataType:'json',
       success: function(result){
+        
         result=JSON.parse(result);
         console.log("helloooooo")
-        console.log(result[0][6])
+        // console.log(result[0][6])
+        console.log("helloooooo")
+        console.log(result[0])
         // console.log($.parseJSON(result));
       // console.log(result[0].THUMBNAIL);
       var str="";
       for(var i=0 ; i<result.length; i++){
         str += `<div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-80">
-          <a href="#"><img class="card-img-top" src=`+result[i][6]+` alt=""></a>
+        <div class="card h-80" onclick="redirectVideo('`+result[i][3]+`');">
+        <img class="card-img-top" src=`+result[i][6]+` alt="">
+
+        <!--<a href=`+result[i][3]+`><img class="card-img-top" src=`+result[i][6]+` alt=""></a>-->
+          <!-- <a href="#"><img class="card-img-top" src=`+result[i][6]+` alt="">result[i][3]</a>-->
           <div class="card-body">
             <h4 class="card-title">
               <a href="#">`+result[i][1]+`</a>
@@ -158,10 +168,7 @@ $(window).bind("load", function() {
 });
 
 
-function playvideo() {
-  console.log("play video")
-//   document.getElementById("demo").innerHTML = "Hello World";
-location.href="http://example.com" 
+function redirectVideo(url) {
+  console.log(url);
+  window.location="/playVideo?url="+url;
 }
-
-

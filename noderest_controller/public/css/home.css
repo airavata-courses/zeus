@@ -105,3 +105,16 @@ input[type=submit] {
     color: white;
     text-align: center;
 }
+/* .videobox{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+} */
+.videoRecoList{
+margin: 10px;
+}
+
+.videoRecoList img{
+  width: 350px;
+}

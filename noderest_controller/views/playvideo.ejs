@@ -15,26 +15,21 @@
 
     <!-- Custom styles for this template -->
     <link href="css/home.css" rel="stylesheet">
-
+    
   </head>
 
   <body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container-fluid">
+      <div class="container">
         <a class="navbar-brand" href="#">ZeusTube</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           
-          <!-- <form autocomplete="off" action="/action_page.php">
-            <div class="autocomplete container-1" style="width:300px;" class="box">
-              <input id="myInput" type="text" name="myCountry" placeholder="Country">
-            </div>
-            <input type="submit">
-          </form> -->
+          
           
           <div class="box"> 
             <div class="container-1 autocomplete"> 
@@ -58,13 +53,48 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container playavideo" >
+      <div class="row">
+        <div class="col-md-8">
+            <div class="container videobox">
+                <iframe width="560" height="315" src='<%= url %>' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
 
-      <div class="row" id="videos">
+        <div class="col-md-4">
+          <!-- display videos vertically-->
+
+          <figcaption>
+            <div class="videoRecoList">  
+              <a href="http://thenewcode.com/assets/videos/glacier.mp4" class="currentvid">
+                  <img src="http://thenewcode.com/assets/images/vid-glacier.jpg" alt="Athabasca Glacier">
+              </a>
+            </div>
+            <div class="videoRecoList">  
+                <a href="http://thenewcode.com/assets/videos/glacier.mp4" class="currentvid">
+                    <img src="http://thenewcode.com/assets/images/vid-glacier.jpg" alt="Athabasca Glacier">
+                </a>
+              </div>
+            <div class="videoRecoList">  
+                  <a href="http://thenewcode.com/assets/videos/glacier.mp4" class="currentvid">
+                      <img src="http://thenewcode.com/assets/images/vid-glacier.jpg" alt="Athabasca Glacier">
+                  </a>
+                </div>
+                          
+            </figcaption>
             
-          Loading...  
-    
-      </div>  <!-- /.row -->
+
+
+
+
+
+        </div>
+          
+          
+      </div>
+        
+    </div>
+        
 
     
     </div>    <!-- /.container -->
@@ -72,9 +102,11 @@
 
     <!-- Footer -->
 
-    <footer class="py-2 bg-dark">
+    <footer class="py-2 bg-dark footer">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Zeus Tube 2018</p>
+        
+            
       </div>
       <!-- /.container -->
     </footer>
