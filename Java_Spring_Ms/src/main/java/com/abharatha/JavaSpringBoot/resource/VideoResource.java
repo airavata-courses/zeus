@@ -28,15 +28,12 @@ public class VideoResource {
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, path = "{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<String> searchVideos(@PathVariable("searchStr") String searchStr) {
+	public List<VideoTable> searchVideos(@PathVariable("searchStr") String searchStr) {
 
 		List<VideoTable> list = repository.findByPlaceContaining(searchStr);
-		List<String> l1 = new ArrayList<>();
-		for (VideoTable videoTable : list) {
-			l1.add(videoTable.getVideoName());
-		}
 		
-		return l1;
+		
+		return list;
 
 	}
 
