@@ -1,5 +1,5 @@
-const MYSQL_USERNAME = "aravind";
-const MYSQL_PASSWORD = "aravind";
+const MYSQL_USERNAME = "haritha";
+const MYSQL_PASSWORD = "haritha";
 
 
 module.exports = {
