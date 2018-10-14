@@ -1,5 +1,5 @@
 const MYSQL_USERNAME = "root";
-const MYSQL_PASSWORD = "admin";
+const MYSQL_PASSWORD = "root";
 
 
 module.exports = {
