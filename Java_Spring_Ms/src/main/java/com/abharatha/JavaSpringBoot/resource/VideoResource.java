@@ -1,82 +1,56 @@
 package com.abharatha.JavaSpringBoot.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.abharatha.JavaSpringBoot.RabbitProducer.HelloRabbitProducer;
 import com.abharatha.JavaSpringBoot.dao.VideoTableDao;
+import com.abharatha.JavaSpringBoot.entity.RecoQueueMessage;
 import com.abharatha.JavaSpringBoot.entity.VideoTable;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RestController
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/search/v1")
+@RequestMapping(path = "/search/")
 public class VideoResource {
 
 	@Autowired
 	private VideoTableDao repository;
 
+	@Autowired
+	private HelloRabbitProducer helloRabbitProducer;
+
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	@CrossOrigin(origins = "*")
-	@RequestMapping(method = RequestMethod.GET, path = "{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, path = "v1/{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VideoTable> searchVideos(@PathVariable("searchStr") String searchStr) {
 
 		List<VideoTable> list = repository.findByPlaceContaining(searchStr);
-		
-		
+
 		return list;
 
 	}
 
-	// @RequestMapping(method = RequestMethod.GET, path = "{userId}")
-	// public ResponseEntity<?> getUser(@PathVariable("userId") Integer userId) {
-	// if (repository.findById(userId) != null) {
-	// return ResponseEntity.ok(repository.findById(userId));
-	// } else {
-	// return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new
-	// ErrorMessage("User not found!"));
-	// }
-	// }
-	//
-	// @RequestMapping(method = RequestMethod.POST, consumes =
-	// MediaType.APPLICATION_JSON_VALUE, produces =
-	// MediaType.APPLICATION_JSON_VALUE)
-	// public ResponseEntity<?> insertUser(@RequestBody VideoTable user) {
-	// VideoTable result = repository.save(user);
-	// if (result != null) {
-	// return ResponseEntity.ok("User added");
-	// } else {
-	// return ResponseEntity.badRequest().body(new ErrorMessage("Couldnt inser
-	// user"));
-	// }
-	// }
-	//
-	// @RequestMapping(method = RequestMethod.PUT, path = "{userId}")
-	// public ResponseEntity<Integer> updateUser(@PathVariable("userId") Integer
-	// userId, @RequestBody VideoTable user) {
-	// user.setUserId(userId);
-	// if (repository.save(user) != null) {
-	// return ResponseEntity.ok().build();
-	// } else {
-	// return ResponseEntity.badRequest().build();
-	// }
-	// }
-	//
-	// @RequestMapping(method = RequestMethod.DELETE, path = "{userId}")
-	// private ResponseEntity<Integer> deleteUser(@PathVariable("userId") Integer
-	// uuid) {
-	// repository.deleteById(uuid);
-	// return ResponseEntity.ok().build();
-	//
-	// }
+	@RequestMapping(method = RequestMethod.GET, path = "video/{videoId}")
+	public ResponseEntity<?> getUser(@PathVariable("videoId") Integer userId) throws JsonProcessingException {
+
+		RecoQueueMessage message = new RecoQueueMessage(1, "fun");
+		helloRabbitProducer.sendMessage(message);
+
+	    return new ResponseEntity<>(null , HttpStatus.OK);
+	}
 
 }
