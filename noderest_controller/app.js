@@ -15,17 +15,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-importer.config({
-    'host': 'localhost',
-    'user': MYSQLCONNECTION.MYSQL_USERNAME,
-    'password': MYSQLCONNECTION.MYSQL_PASSWORD
-});
+// importer.config({
+//     'host': 'localhost',
+//     'user': MYSQLCONNECTION.MYSQL_USERNAME,
+//     'password': MYSQLCONNECTION.MYSQL_PASSWORD
+// });
 
-importer.importSQL('data.sql').then( () => {
-    console.log('all statements have been executed')
-}).catch( err => {
-    console.log(`error: ${err}`)
-});
+// importer.importSQL('data.sql').then( () => {
+//     console.log('all statements have been executed')
+// }).catch( err => {
+//     console.log(`error: ${err}`)
+// });
 
 
 console.log("Controller is running at 3001");
