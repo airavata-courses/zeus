@@ -1,4 +1,5 @@
 #!/bin/sh
 cd ../CompleteProject/NodeExpressMS/zeus/node_express_ms
 sudo npm install
-sudo nohup node app.js &
+sudo npm install forever -g
+sudo forever start node app.js &
