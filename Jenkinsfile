@@ -36,9 +36,8 @@ pipeline {
         
         stage('Deploying Controller') {
             steps {
-                dir('scripts/CompleteProject/NodeRestController/zeus/'){
-                    sh 'pwd'
-                    sh 'sudo bash node_rest.sh'
+                dir('scripts/CompleteProject/NodeRestController/zeus'){
+                    sh 'sudo bash ./node_rest.sh'
                 }
             }
         }
