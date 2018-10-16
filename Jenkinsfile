@@ -34,13 +34,13 @@ pipeline {
             }
         }
         
-        // stage('Deploying DB and Controller') {
-        //     steps {
-        //         dir('scripts/scripts'){
-        //             sh 'sudo bash ./Node_rest_controller.sh'
-        //         }
-        //     }
-        // }
+        stage('Deploying Controller') {
+            steps {
+                dir('scripts/CompleteProject/NodeRestController/zeus/'){
+                    sh 'sudo bash ./node_rest.sh'
+                }
+            }
+        }
 
         // stage('Deploying Node Express') {
         //             steps {
