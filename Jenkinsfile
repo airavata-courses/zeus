@@ -24,8 +24,8 @@ pipeline {
         stage('Check and Ready the Host environment'){
             steps{
                 //Run Ansible file here
-                sh 'echo "hello"'
-                sh 'sudo dnf install openjdk-8-jre'
+                sh 'echo "hello"'  
+                sh 'sudo apt-get install oracle-java8-installer'
                 sh 'export JAVA_HOME=$(/usr/lib/jvm/java-8-openjdk-amd64/)'
                 sh 'export PATH=$JAVA_HOME/bin:$PATH'
             }
