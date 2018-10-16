@@ -4,8 +4,10 @@ pipeline {
     stages {
         
         stage('Stopping docker containers'){
+            steps{
                 sh 'sudo docker stop some-rabbit || true && sudo docker rm some-rabbit || true'
                 sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
+            }
         }
 
         stage('Starting MySql and RabbitMQ docker'){
