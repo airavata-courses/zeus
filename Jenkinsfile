@@ -38,43 +38,51 @@ pipeline {
             }
         }
 
-        stage('Deploying Controller') {
-            steps {
-                dir('scripts/CompleteProject/NodeRestController/zeus'){
-                    sh 'sudo bash ./node_rest.sh'
+        stage('Dump file'){
+            steps{
+                dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
+                    sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql -uroot -proot  < ./data.sql'
                 }
             }
         }
 
-        // stage('Deploying Node Express') {
-        //             steps {
-        //                 dir('scripts/scripts'){
-        //                     sh 'sudo bash ./Node_express_ms.sh'
-        //                 }
-        //             }
-        //         }
-        
-        // stage('Deploying Python Flask') {
-        //             steps {
-        //                 dir('scripts/scripts'){
-        //                     sh 'sudo bash ./python_flash_ms.sh'
-        //                 }
-        //             }
-        //         }
-        
-        // stage('Deploying Spring Boot') {
-        //     steps {
-        //         dir('scripts/scripts'){
-        //             sh 'sudo bash ./java_spring.sh'
-        //         }
-        //     }
-        // }
+        stage('Deploying Controller') {
+            steps {
+                dir('scripts/CompleteProject/NodeRestController/zeus'){
+                    sh 'sudo bash ./node_rest.sh || true'
+                }
+            }
+        }
 
-        // stage('Final') {
-        //     steps {
-        //         echo 'Finsihed Deploying....'
-        //     }
-        // }
+        stage('Deploying Node Express') {
+                    steps {
+                        dir('scripts/CompleteProject/NodeExpressMS/zeus'){
+                            sh 'sudo bash ./node_express.sh || true'
+                        }
+                    }
+                }
+        
+        stage('Deploying Spring Boot') {
+                    steps {
+                        dir('scripts/CompleteProject/SpringMSApplication/zeus'){
+                            sh 'sudo bash ./java_ms.sh'
+                        }
+                    }
+                }
+        
+        stage('Deploying Python Flask') {
+            steps {
+                dir('scripts/CompleteProject/PythonFlaskApplication/zeus'){
+                    sh 'sudo bash ./pythonScript.sh'
+                }
+            }
+        }
+
+        stage('Final') {
+            steps {
+                echo 'Finsihed Deploying....'
+            }
+        }
 
     }
 }
