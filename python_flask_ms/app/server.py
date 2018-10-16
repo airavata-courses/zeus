@@ -9,8 +9,8 @@ app = Flask(__name__)
 def python_flask_ms():
     CORS(app)
     mysql = MySQL()
-    app.config['MYSQL_DATABASE_USER']='aravind'
-    app.config['MYSQL_DATABASE_PASSWORD']='aravind'
+    app.config['MYSQL_DATABASE_USER']='root'
+    app.config['MYSQL_DATABASE_PASSWORD']='root'
     app.config['MYSQL_DATABASE_DB']='zeus_flask'
     app.config['MYSQL_DATABASE_HOST']='localhost'
 
