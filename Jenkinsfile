@@ -26,13 +26,13 @@ pipeline {
         //     }
         // }
         
-        // stage('Cloning Project repos'){
-        //     steps{
-        //         dir('scripts'){
-        //             sh 'sudo bash ./GetProject.sh'
-        //         }
-        //     }
-        // }
+        stage('Cloning Project repos'){
+            steps{
+                dir('scripts'){
+                    sh 'sudo bash ./GetProject.sh'
+                }
+            }
+        }
         
         // stage('Deploying DB and Controller') {
         //     steps {
