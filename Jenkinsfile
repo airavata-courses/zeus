@@ -7,10 +7,10 @@ pipeline {
             steps{
                 sh 'sudo docker stop some-rabbit || true && sudo docker rm some-rabbit || true'
                 sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
-                sh 'sudo docker stop node_express_ms || true && sudo docker rm node_express_ms || true'
-                sh 'sudo docker stop node_rest_ms || true && sudo docker rm node_rest_ms || true'
-                sh 'sudo docker stop java_ms || true && sudo docker rm java_ms || true'
-                sh 'sudo docker stop python_flask_ms || true && sudo docker rm python_flask_ms || true'
+                sh 'sudo docker stop node_express_ms_cont || true && sudo docker rm node_express_ms_cont || true'
+                sh 'sudo docker stop node_rest_ms_cont || true && sudo docker rm node_rest_ms_cont || true'
+                sh 'sudo docker stop java_ms_cont || true && sudo docker rm java_ms_cont || true'
+                sh 'sudo docker stop python_flask_ms_cont || true && sudo docker rm python_flask_ms_cont || true'
             }
         }
 
