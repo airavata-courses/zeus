@@ -1,4 +1,5 @@
 #!/bin/sh
+#remove if container is already running
 cd python_flask_ms
 docker rm -f python_flask_ms_cont
 docker rmi python_flask_ms
