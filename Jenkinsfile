@@ -26,14 +26,14 @@ pipeline {
         //     }
         // }
         
-        stage('Cloning Project repos'){
+         stage('Cloning Project repos'){
             steps{
                 dir('scripts'){
                     sh 'sudo bash ./GetProject.sh'
                 }
             }
         }
-        
+
         stage('Deploying Controller') {
             steps {
                 dir('scripts/CompleteProject/NodeRestController/zeus'){
