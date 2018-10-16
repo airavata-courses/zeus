@@ -21,14 +21,15 @@ pipeline {
             }
         }
 
-        // stage('Check and Ready the Host environment'){
-        //     steps{
-        //         //Run Ansible file here
-        //         sh 'echo "hello"'
-        //         sh 'set pid1 = $sudo lsof -t -i:3001'
-        //         sh 'sudo kill -9 $pid1'
-        //     }
-        // }
+        stage('Check and Ready the Host environment'){
+            steps{
+                //Run Ansible file here
+                sh 'echo "hello"'
+                sh 'sudo dnf install openjdk-8-jre'
+                sh 'export JAVA_HOME=$(/usr/lib/jvm/java-8-openjdk-amd64/)'
+                sh 'export PATH=$JAVA_HOME/bin:$PATH'
+            }
+        }
         
         stage('Cloning Project repos'){
             steps{
