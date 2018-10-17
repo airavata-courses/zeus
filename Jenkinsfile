@@ -16,7 +16,7 @@ pipeline {
 
         stage('Starting MySql and RabbitMQ docker'){
             steps{
-               // sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
+               sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
                 sh 'sudo docker run -d --hostname my-rabbit --name some-rabbit --net="host" -p 5672 -p 15672 rabbitmq:3-management'
             }
         }
@@ -42,11 +42,12 @@ pipeline {
         stage('Dump file'){
             steps{
                 ///var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller
-                //dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
+                dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
                 //sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
-                    sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
+                    // sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
+                    sh 'chmod u+x *.*'
                     sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < /var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller/data.sql'
-                //}
+                }
             }
         }
 
