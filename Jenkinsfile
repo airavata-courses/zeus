@@ -45,7 +45,7 @@ pipeline {
                 //dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
                  
                     sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql -uroot -proot  < /var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller/data.sql || true'
-                }
+                //}
             }
         }
 
