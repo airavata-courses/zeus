@@ -43,7 +43,7 @@ pipeline {
             steps{
                 ///var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller
                 //dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
-                    sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
+                //sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
                     sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql -h127.0.0.1 -uroot -proot  < /var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller/data.sql'
                 //}
             }
