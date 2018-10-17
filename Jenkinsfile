@@ -42,6 +42,9 @@ pipeline {
         stage('Dump file'){
             steps{
                 dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
+                    sh 'pwd'
+                    sh 'cd ~'
+                    sh 'pwd'
                     sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql -uroot -proot  < ./data.sql || true'
                 }
             }
