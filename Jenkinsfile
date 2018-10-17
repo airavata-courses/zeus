@@ -16,7 +16,7 @@ pipeline {
 
         stage('Starting MySql and RabbitMQ docker'){
             steps{
-                sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12'
+                sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
                 sh 'sudo docker run -d --hostname my-rabbit --name some-rabbit --net="host" -p 5672 -p 15672 rabbitmq:3-management'
             }
         }
