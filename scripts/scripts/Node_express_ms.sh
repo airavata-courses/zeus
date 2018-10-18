@@ -1,4 +1,6 @@
 #!/bin/sh
 cd ../CompleteProject/NodeExpressMS/zeus/node_express_ms
-sudo npm install
-sudo forever start app.js &
+docker rm -f node_express_ms_cont
+docker rmi node_express_ms
+docker build -t node_express_ms .
+docker run -d --net="host" -p=3050 --name node_express_ms_cont node_express_ms

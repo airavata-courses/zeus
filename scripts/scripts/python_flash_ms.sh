@@ -1,6 +1,6 @@
 #!/bin/sh
-
 cd ../CompleteProject/PythonFlaskApplication/zeus/python_flask_ms
-sudo python3 -m pip install -r requirements.txt
-cd app
-sudo nohup python3 server.py &
+docker rm -f python_flask_ms_cont
+docker rmi python_flask_ms
+docker build -t python_flask_ms .
+docker run -d --net="host" -p=4000 --name python_flask_ms_cont python_flask_ms

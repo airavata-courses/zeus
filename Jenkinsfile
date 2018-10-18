@@ -47,7 +47,7 @@ pipeline {
 
         stage('Deploying Controller') {
             steps {
-                dir('scripts/CompleteProject/NodeRestController/zeus'){
+                dir('scripts/scripts'){
                     sh 'sudo bash ./node_rest.sh || true'
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
 
         stage('Deploying Node Express') {
                     steps {
-                        dir('scripts/CompleteProject/NodeExpressMS/zeus'){
+                        dir('scripts/scripts'){
                             sh 'sudo bash ./node_express.sh || true'
                         }
                     }
@@ -63,7 +63,7 @@ pipeline {
         
         stage('Deploying Spring Boot') {
                     steps {
-                        dir('scripts/CompleteProject/SpringMSApplication/zeus'){
+                        dir('scripts/scripts'){
                             sh 'sudo bash ./java_ms.sh'
                         }
                     }
@@ -71,7 +71,7 @@ pipeline {
         
         stage('Deploying Python Flask') {
             steps {
-                dir('scripts/CompleteProject/PythonFlaskApplication/zeus'){
+                dir('scripts/scripts'){
                     sh 'sudo bash ./pythonScript.sh'
                 }
             }
