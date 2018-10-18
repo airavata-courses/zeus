@@ -48,7 +48,7 @@ pipeline {
         stage('Deploying Controller') {
             steps {
                 dir('scripts/scripts'){
-                    sh 'sudo bash ./node_rest.sh || true'
+                    sh 'sudo bash ./Node_rest_controller.sh'
                 }
             }
         }
@@ -56,7 +56,7 @@ pipeline {
         stage('Deploying Node Express') {
                     steps {
                         dir('scripts/scripts'){
-                            sh 'sudo bash ./node_express.sh || true'
+                            sh 'sudo bash ./Node_express_ms.sh'
                         }
                     }
                 }
@@ -64,7 +64,7 @@ pipeline {
         stage('Deploying Spring Boot') {
                     steps {
                         dir('scripts/scripts'){
-                            sh 'sudo bash ./java_ms.sh'
+                            sh 'sudo bash ./java_spring.sh'
                         }
                     }
                 }
@@ -72,7 +72,7 @@ pipeline {
         stage('Deploying Python Flask') {
             steps {
                 dir('scripts/scripts'){
-                    sh 'sudo bash ./pythonScript.sh'
+                    sh 'sudo bash ./python_flash_ms.sh'
                 }
             }
         }
