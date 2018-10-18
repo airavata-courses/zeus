@@ -42,12 +42,12 @@ pipeline {
         stage('Dump file'){
             steps{
                 ///var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller
-                dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
+                // dir('scripts/CompleteProject/NodeRestController/zeus/noderest_controller'){
                 //sh 'sudo docker stop docker-container-mysql5 || true && sudo docker rm docker-container-mysql5 || true'
                     // sh 'sudo docker run --name docker-container-mysql5 --net="host" -p 3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.12 || true'
                     sh 'sudo chmod +x data.sql'
                     sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < /var/lib/jenkins/workspace/Zeus_Pipeline/scripts/CompleteProject/NodeRestController/zeus/noderest_controller/data.sql || true'
-                }
+                // }
             }
         }
 
