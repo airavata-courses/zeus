@@ -39,17 +39,10 @@ pipeline {
             }
         }
 
-        stage('Dump file'){
-            steps{
-                sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
-                sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
-                sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
-            }
-        }
-
         stage('Deploying Controller') {
             steps {
                 dir('scripts/scripts'){
+                    sh 'sudo sleep 80'
                     sh 'sudo bash ./Node_rest_controller.sh'
                 }
             }
