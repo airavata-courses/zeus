@@ -1,5 +1,6 @@
 #!/bin/sh
 cd ../CompleteProject/NodeRestController/zeus/noderest_controller
+sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot < data.sql
 docker rm -f node_rest_ms_cont
 docker rmi node_rest_ms
 docker build -t node_rest_ms .

@@ -1,7 +1,4 @@
 #!/bin/sh
-
-
-
 rm -rf CompleteProject
 		
 mkdir CompleteProject
