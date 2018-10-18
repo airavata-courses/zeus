@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: zeus_flask
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version 8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -57,7 +57,7 @@ UNLOCK TABLES;
 --
 -- Host: localhost    Database: zeus_node
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version 8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -107,7 +107,7 @@ UNLOCK TABLES;
 --
 -- Host: localhost    Database: zeus_spring
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version 8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -152,4 +152,42 @@ INSERT INTO `videotable` VALUES (1,'dailyroutines','dailyroutines of people','ht
 /*!40000 ALTER TABLE `videotable` ENABLE KEYS */;
 UNLOCK TABLES;
 
+SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `userpreferencestable`
+--
+
+
+DROP DATABASE IF EXISTS `zeus_rabbitmq`;
+CREATE DATABASE IF NOT EXISTS `zeus_rabbitmq`;
+USE `zeus_rabbitmq`;
+
+DROP TABLE IF EXISTS `userpreferencestable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userpreferencestable` (
+  `USERPREFERENCESTBID` int(11) NOT NULL,
+  `USERTBID` int(11) DEFAULT NULL,
+  `CATEGORY` varchar(45) DEFAULT NULL,
+  `COUNT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`USERPREFERENCESTBID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userpreferencestable`
+--
+
+LOCK TABLES `userpreferencestable` WRITE;
+/*!40000 ALTER TABLE `userpreferencestable` DISABLE KEYS */;
+INSERT INTO `userpreferencestable` VALUES (1,1,'SCIENCE',10),(2,1,'FUN',5),(3,2,'SCIENCE',5);
+/*!40000 ALTER TABLE `userpreferencestable` ENABLE KEYS */;
+UNLOCK TABLES;
 -- Dump completed on 2018-09-13 21:25:07
