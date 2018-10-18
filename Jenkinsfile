@@ -42,6 +42,8 @@ pipeline {
         stage('Dump file'){
             steps{
                 sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
+                sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
+                sh 'sudo docker exec -i docker-container-mysql5 /usr/bin/mysql  -uroot -proot  < data.sql || true' 
             }
         }
 
