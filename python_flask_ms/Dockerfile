@@ -1,10 +1,4 @@
-FROM ubuntu:16.04
-
-
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev && \
-    apt-get install -y python-mysqldb
-
+FROM python:3.7-alpine
 
 COPY ./requirements.txt /app/requirements.txt
 
