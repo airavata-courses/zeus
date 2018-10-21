@@ -1,0 +1,58 @@
+---
+
+- hosts: localhost
+  tasks:  
+    - name: JAVA CHECK
+      command: java -version
+      register: java_check
+      ignore_errors: True
+       
+    - name: Install JAVA if not there
+      script: "{{playbook_dir}}/AnsibleScripts/installjava.sh"
+      when: java_check.failed == True
+      
+    - name: MAVEN CHECK
+      command: mvn -version
+      register: maven_check
+      ignore_errors: True
+       
+    - name: Install MAVEN if not there
+      script: "{{playbook_dir}}/AnsibleScripts/mvninstall.sh"
+      when: maven_check.failed == True
+      
+    - name: NODE JS CHECK
+      command: node --version
+      register: node_check
+      ignore_errors: True
+       
+    - name: Install NODE JS if not there
+      script: "{{playbook_dir}}/AnsibleScripts/nodeinstall.sh"
+      when: node_check.failed == True
+      
+    - name: PYTHON CHECK
+      command: python --version
+      register: python_check
+      ignore_errors: True
+       
+    - name: Install PYTHON if not there
+      script: "{{playbook_dir}}/AnsibleScripts/pythoninstall.sh"
+      when: python_check.failed == True
+
+    - name: MYSQL CHECK
+      command: mysql --version
+      register: mysql_check
+      ignore_errors: True
+       
+    - name: Install MYSQL if not there
+      script: "{{playbook_dir}}/AnsibleScripts/mysqlinstall.sh"
+      when: mysql_check.failed == True     
+      
+      
+
+
+        
+      
+
+
+       
+       
