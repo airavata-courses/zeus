@@ -28,8 +28,7 @@ pipeline {
                 sh 'sudo apt-get install oracle-java8-installer'
                 sh 'export JAVA_HOME=$(/usr/lib/jvm/java-8-openjdk-amd64/)'
                 sh 'export PATH=$JAVA_HOME/bin:$PATH'
-		sh 'apt-cache search maven'
-		sh 'sudo apt-get install maven'
+		
             }
         }
         
