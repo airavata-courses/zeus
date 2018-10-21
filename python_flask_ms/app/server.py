@@ -77,14 +77,14 @@ def python_flask_ms():
         else:
             return "post req"
 
-    @app.route("/getPrefs", methods=['GET'])
+    @app.route("/getVideos", methods=['GET'])
     def getPrefs():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
         return jsonify(data)
 
-    @app.route("/getVideos", methods = ['GET'])
+    @app.route("/getPrefs", methods = ['GET'])
     def getVideos():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from userpreferencestable")
