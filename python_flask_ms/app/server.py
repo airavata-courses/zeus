@@ -4,6 +4,9 @@ from flaskext.mysql import MySQL
 from flask_cors import CORS
 import pika
 import threading
+import json
+import pymysql.cursors
+
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
@@ -12,7 +15,42 @@ channel.queue_declare(queue='zeus.queue')
 app = Flask(__name__)
 
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(body)
+    s = json.loads(body)
+
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='root',
+                                 db='zeus_flask',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+
+    try:
+        with connection.cursor() as cursor:
+            #Fetch records
+            # sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
+
+            sql = "SELECT * FROM `userpreferencestable` WHERE `USERTBID`=%s AND `CATEGORY`=%s"
+            # cursor.execute(sql, (int(s["userId"]), s["category"]))
+            cursor.execute(sql, (int(s["userId"]), s["category"]))
+            result = cursor.fetchone()
+            if(result is None):
+                # Create a new record
+                sql = "INSERT INTO `userpreferencestable` (`USERTBID`, `CATEGORY`,`COUNT`) VALUES (%s, %s, %s)"
+                cursor.execute(sql, (int(s["userId"]), s["category"], 1))
+            else:
+                a = result["COUNT"] + 1
+                # Create a new record
+                sql = "UPDATE `userpreferencestable` SET `COUNT`=%s WHERE `USERTBID`=%s AND `CATEGORY`=%s"
+                cursor.execute(sql, (a, int(s["userId"]), s["category"]))
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+    finally:
+        connection.close()
+
+
+    # print(str()+"-->"+s["category"])
 
 
 def python_flask_ms():
@@ -39,12 +77,17 @@ def python_flask_ms():
         else:
             return "post req"
 
-
+    @app.route("/getPrefs", methods=['GET'])
+    def getVideos():
+        cursor = mysql.connect().cursor()
+        cursor.execute("SELECT * from videotable")
+        data = cursor.fetchall()
+        return jsonify(data)
 
     @app.route("/getVideos", methods = ['GET'])
     def getVideos():
         cursor = mysql.connect().cursor()
-        cursor.execute("SELECT * from videotable")
+        cursor.execute("SELECT * from userpreferencestable")
         data = cursor.fetchall()
         return jsonify(data)
 
