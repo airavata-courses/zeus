@@ -38,7 +38,7 @@ CREATE TABLE `videotable` (
   `THUMBNAIL` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`VIDEOTBID`),
   KEY `UPL_idx` (`UPLOADEDBY`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +100,7 @@ CREATE TABLE `usertable` (
   `PHONENO` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`USERTBID`),
   UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `videotable` (
   `THUMBNAIL` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`VIDEOTBID`),
   KEY `UPL_idx` (`UPLOADEDBY`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `userpreferencestable`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
