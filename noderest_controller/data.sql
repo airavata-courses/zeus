@@ -1,4 +1,4 @@
-﻿-- MySQL dump 10.13  Distrib 8.0.12, for macos10.13 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for macos10.13 (x86_64)
 --
 -- Host: localhost    Database: zeus_flask
 -- ------------------------------------------------------
@@ -50,6 +50,18 @@ LOCK TABLES `videotable` WRITE;
 INSERT INTO `videotable` VALUES (1,'dailyroutines','dailyroutines of people','https://www.youtube.com/embed/Xb02qGHngb0',1,1000,'http://womcdn.s3.amazonaws.com/common/15101405345002-232023931.jpg?h330-w330'),(2,'TedX','How cancer cells communicate','https://www.youtube.com/embed/762c6pFpoqg',1,2000,'https://cdn.slidesharecdn.com/ss_thumbnails/howtotedx-110312020226-phpapp01-thumbnail-4.jpg?cb=1365429305'),(3,'SharkTank','Shark Tank Kevin oLeary gets into an argument!','https://www.youtube.com/embed/Kgk7mjnRx-4',2,3000,'https://m.media-amazon.com/images/M/MV5BODY3MzA4ZmItZjJkNC00Nzc1LWI4ODUtZjQ5YjE1MjJlMDIzXkEyXkFqcGdeQXVyNjg2MzA5MTg@._V1_.jpg'),(4,'EllenShow','Ellen Couldn’t Believe This Amazon Service Is Real','https://www.youtube.com/embed/07kkUVphTFg',3,4000,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQChbaC2ghkNEaq3Jy3XPM5ZNjahg5m6q4T_l0aajGBiYwB--Fiow'),(5,'Big Wave Surfing Compilation 2017','Big Wave Surfing Compilation 2017 ** REVISED **AMAZING FOOTAGE ','https://www.youtube.com/embed/rj7xMBxd5iY',2,5000,'https://i.ytimg.com/vi/rj7xMBxd5iY/default.jpg'),(6,'GoPro Surf: Inside the Barrels of Namibia','The term we scored waves in the surfing world gets thrown around','https://www.youtube.com/embed/pn7SFWpXURk',3,4000,'https://i.ytimg.com/vi/pn7SFWpXURk/default.jpg'),(8,'Surfing Big Wedge RawFootage','RAW FOOTAGE August 17 This was such an epic day of shooting!','https://www.youtube.com/embed/WauvB0aQq-s',1,6000,'https://i.ytimg.com/vi/WauvB0aQq-s/default.jpg'),(9,'Surfing POV | September 8th | 2018 (RAW)','ome decent south swell at play, tide rising with a semi tricky reform','https://www.youtube.com/embed/p291smnaDhI',2,5000,'https://i.ytimg.com/vi/3jwJUDC-Llg/default.jpg'),(10,'How to escape educations death valley','Sir Ken Robinson outlines 3 principles crucial for the human','https://www.ted.com/talks/ken_robinson_how_to_escape_education_s_death_valley',3,3000,'https://i.ytimg.com/vi/wX78iKhInsc/default.jpg'),(11,'Fun.: We Are Young ft. Janelle Monáe','Funs music video for We Are Young featuring Janelle Monáe from the album','https://www.youtube.com/embed/Sv6dMFF_yts',3,3000,'https://i.ytimg.com/vi/Sv6dMFF_yts/default.jpg');
 /*!40000 ALTER TABLE `videotable` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `userpreferencestable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `userpreferencestable` (
+  `USERPREFERENCESTBID` int(11) NOT NULL AUTO_INCREMENT,
+  `USERTBID` int(11) DEFAULT NULL,
+  `CATEGORY` varchar(45) DEFAULT NULL,
+  `COUNT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`USERPREFERENCESTBID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Dump completed on 2018-09-13 21:24:35
 
@@ -142,6 +154,10 @@ CREATE TABLE `videotable` (
   KEY `UPL_idx` (`UPLOADEDBY`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS `userpreferencestable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+
 --
 -- Dumping data for table `videotable`
 --
@@ -159,35 +175,3 @@ SET NAMES utf8 ;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `userpreferencestable`
---
-
-
-DROP DATABASE IF EXISTS `zeus_rabbitmq`;
-CREATE DATABASE IF NOT EXISTS `zeus_rabbitmq`;
-USE `zeus_rabbitmq`;
-
-DROP TABLE IF EXISTS `userpreferencestable`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `userpreferencestable` (
-  `USERPREFERENCESTBID` int(11) NOT NULL,
-  `USERTBID` int(11) DEFAULT NULL,
-  `CATEGORY` varchar(45) DEFAULT NULL,
-  `COUNT` int(11) DEFAULT NULL,
-  PRIMARY KEY (`USERPREFERENCESTBID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `userpreferencestable`
---
-
-LOCK TABLES `userpreferencestable` WRITE;
-/*!40000 ALTER TABLE `userpreferencestable` DISABLE KEYS */;
-INSERT INTO `userpreferencestable` VALUES (1,1,'SCIENCE',10),(2,1,'FUN',5),(3,2,'SCIENCE',5);
-/*!40000 ALTER TABLE `userpreferencestable` ENABLE KEYS */;
-UNLOCK TABLES;
--- Dump completed on 2018-09-13 21:25:07
