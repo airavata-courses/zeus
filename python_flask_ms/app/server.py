@@ -78,7 +78,7 @@ def python_flask_ms():
             return "post req"
 
     @app.route("/getPrefs", methods=['GET'])
-    def getVideos():
+    def getPrefs():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
@@ -90,8 +90,6 @@ def python_flask_ms():
         cursor.execute("SELECT * from userpreferencestable")
         data = cursor.fetchall()
         return jsonify(data)
-
-
 
     mysql.init_app(app)
 
