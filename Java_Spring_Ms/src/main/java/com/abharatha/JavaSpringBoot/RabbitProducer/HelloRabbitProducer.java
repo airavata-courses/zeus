@@ -30,6 +30,6 @@ public class HelloRabbitProducer extends EndPoint {
 		String jsonInString = mapper.writeValueAsString(obj);
 
 		//var json = ObjectMapper.w
-		rabbitTemplate.convertAndSend(QUEUE_NAME, "Hello " + jsonInString);
+		rabbitTemplate.convertAndSend(QUEUE_NAME, jsonInString);
 	}
 }

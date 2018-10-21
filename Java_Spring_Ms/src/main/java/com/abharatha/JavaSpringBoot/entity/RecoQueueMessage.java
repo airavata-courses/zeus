@@ -25,7 +25,7 @@ public class RecoQueueMessage {
 
 	@Override
 	public String toString() {
-		return "RecoQueueMessage [userId=" + userId + ", category=" + category + "]";
+		return "[userId=" + userId + ", category=" + category + "]";
 	}
 
 	public void setUserId(Integer userId) {
