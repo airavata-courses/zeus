@@ -72,6 +72,18 @@ app.get('/logout',function(req, res){
 }); 
 
 
+app.get('/addQueue', function(req, res){   
+    
+    
+    request({
+        method: 'GET',
+        url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category
+      }, function (err, resp) {
+        if (err) return console.error(err.message);
+    });
+    res.send("ok");
+});
+
 
 
 app.post('/signup',function(req,res){

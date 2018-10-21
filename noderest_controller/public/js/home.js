@@ -59,6 +59,13 @@ function autocomplete(inp, arr) {
               console.log(e);
               var url = this.getElementsByTagName("input")[1].value;
               inp.value = this.getElementsByTagName("input")[0].value;
+              $.ajax({
+                url: "/addQueue",
+                crossDomain: true,
+                data: {userId: "1", category: "comedy"},
+                success: function(result){
+                  console.log("added to queue");
+              }});          
               window.location="/playVideo?url="+url;
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
