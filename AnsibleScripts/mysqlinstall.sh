@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo dnf install mysql-server
+sudo dnf -y install mysql-server

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo dnf install maven
+sudo dnf -y install maven

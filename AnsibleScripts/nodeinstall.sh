@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo dnf install nodejs-legacy
-sudo dnf install nodejs npm
+sudo dnf -y install nodejs-legacy
+sudo dnf -y install nodejs npm

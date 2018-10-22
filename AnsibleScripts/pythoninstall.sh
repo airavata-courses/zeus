@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo dnf install python
-sudo dnf install python-pip
+sudo dnf -y install python
+sudo dnf -y install python-pip
