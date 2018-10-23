@@ -34,6 +34,7 @@ pipeline {
             }
         }
         
+	    
         stage('Cloning Project repos'){
             steps{
                 dir('scripts'){
