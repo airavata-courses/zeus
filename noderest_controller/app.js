@@ -44,6 +44,8 @@ app.get('/login',function(req,res){
     return res.render('index');    
 });
 
+
+
 app.post('/login',function(req,res){
 	//console.log("cas");
     var email= req.body.uname;
@@ -84,7 +86,10 @@ app.get('/addQueue', function(req, res){
     res.send("ok");
 });
 
+app.get('/signup',function(req,res){
+    return res.render('signup');
 
+});
 
 app.post('/signup',function(req,res){
     
