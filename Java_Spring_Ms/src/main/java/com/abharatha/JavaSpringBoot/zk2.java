@@ -1,0 +1,45 @@
+package com.abharatha.JavaSpringBoot;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.BackgroundCallback;
+import org.apache.curator.framework.api.CuratorEvent;
+import org.apache.curator.framework.api.CuratorListener;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.curator.retry.RetryNTimes;
+import org.apache.curator.utils.CloseableUtils;
+import org.apache.curator.x.discovery.ServiceDiscovery;
+import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
+import org.apache.curator.x.discovery.ServiceInstance;
+import org.apache.curator.x.discovery.ServiceProvider;
+import org.apache.curator.x.discovery.UriSpec;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.Watcher;
+import org.apache.curator.x.discovery.ServiceInstance;
+
+public class zk2 {
+	private static String zookeeperConnectionString = "localhost:2181";
+    private static Random randomGenerator = new Random();
+	private static final String PATH = "/zeus/java";
+	
+	public static void main(String[] args) throws Exception {
+
+		CuratorFramework client = null;
+
+		ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
+		client = CuratorFrameworkFactory.newClient(zookeeperConnectionString, retryPolicy);
+		client.start();
+		
+		List<String> instances = client.getChildren().forPath("/zeus/java");
+		System.out.println(instances.size());
+		int index = randomGenerator.nextInt(instances.size());
+
+		System.out.println(new String(client.getData().forPath("/zeus/java/"+instances.get(index))));
+
+	}
+
+}
