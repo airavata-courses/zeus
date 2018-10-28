@@ -21,6 +21,8 @@
     "mocha": "^5.2.0",
     "mysql": "^2.16.0",
     "node-mysql-importer": "0.0.10",
+    "node-zookeeper-client": "^0.2.2",
+    "public-ip": "^2.4.0",
     "request": "^2.88.0"
   },
   "readme": "README.md"

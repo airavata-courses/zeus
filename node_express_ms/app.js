@@ -5,7 +5,8 @@ var app = express();
 var mysql      = require('mysql');
 var bodyParser=require("body-parser");
 var MYSQLCONNECTION = require('./constants');
-var request = require('request');
+var port='3051';
+const zookeeper = require('./zk.js')
 
 app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'ejs');
@@ -13,7 +14,97 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
  
 
-app.listen(3050)
+// client.once('connected', function () {
+//     console.log('Connected to the server.');
+
+//     client.create(homePath, function (error) {
+//         if (error) {
+//             console.log('Failed to create node: %s due to: %s.', path, error);
+//         } else {
+//             console.log('Node: %s is successfully created.', path);
+//         }
+
+//         client.close();
+//     });
+
+//     if(!exists(client, homePath)){
+//         client.create(homePath, function (error) {
+//             if (error) {
+//                 console.log('Failed to create node: %s due to: %s.', homePath, error);
+//             } else {
+//                 console.log('Node: %s is successfully created.', homePath);
+//             }
+        
+
+//             client.close();
+//         });
+//     }
+
+//     if(!exists(client, homePath+path)){
+//         client.create(homePath+path, function (error) {
+//             if (error) {
+//                 console.log('Failed to create node: %s due to: %s.', path, error);
+//             } else {
+//                 console.log('Node: %s is successfully created.', path);
+//             }
+//             client.close();
+//         });
+//     }
+
+//     if(!exists(client, homePath+path)){
+//         client.create(homePath+path, function (error) {
+//             if (error) {
+//                 console.log('Failed to create node: %s due to: %s.', path, error);
+//             } else {
+//                 console.log('Node: %s is successfully created.', path);
+//             }
+//             client.close();
+//         });
+//     }
+
+//     var nodeName = '/nodeexpress'+port;
+//     if(!exists(client, homePath+path+nodeName)){
+//         client.create(homePath+path+nodeName, function (error) {
+//             if (error) {
+//                 console.log('Failed to create node: %s due to: %s.', homePath+path+nodeName, error);
+//             } else {
+//                 console.log('Node: %s is successfully created.', homePath+path+nodeName);
+//             }
+//             client.close();
+//         });
+//     }
+
+//     var nodeName = '/zeus/node/nodeexpress'+port;
+//     client.setData(nodeName, buffer, function (error, stat) {
+//         if (error) {
+//             console.log('Got error when setting data: ' + error);
+//             return;
+//         }
+
+//         console.log(
+//             'Set data "%s" on node %s, version: %d.',
+//             buffer.toString(),
+//             path,
+//             stat.version
+//         );
+//         client.close();
+//     });
+
+// });
+
+// client.once('connected', function () {
+//     console.log('Connected to ZooKeeper.');
+//     var nodeName = '/zeus/node';
+//     listChildren(client, nodeName);
+    
+// });
+
+
+// client.connect();
+
+zookeeper.zkCreateClient(port);
+
+app.listen(port);
 
 app.get('/',function(req,res){
     res.header("Access-Control-Allow-Origin", "*");
@@ -41,7 +132,6 @@ app.post('/login',function(req,res){
     console.log(password);
     connection.query('SELECT * FROM usertable WHERE EMAIL = ?',[email], function (error, results, fields) {
     if (error) {
-        // console.log("error ocurred",error);
         res.send({
             "code":400,
             "failed":"error ocurred"
@@ -71,15 +161,6 @@ app.post('/login',function(req,res){
     }
     });
 });
-
-app.get('/logout',function(req, res){
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.send({
-        "code":200,
-        "success":"Logout success"
-        });
-  }); 
 
 app.post('/signup',function(req,res){
     res.header("Access-Control-Allow-Origin", "*");
@@ -117,47 +198,91 @@ app.post('/signup',function(req,res){
     });
 });
 
-app.get('/getSearchVideos',function(req, res){
+function exists(client, path) {
+    client.exists(
+        path,
+        function (event) {
+            console.log('Got event: %s.', event);
+            //exists(client, path);
+        },
+        function (error, stat) {
+            if (error) {
+                console.log(
+                    'Failed to check existence of node: %s due to: %s.',
+                    path,
+                    error
+                );
+                return false;
+            }
 
-    
-    request({
-        method: 'GET',
-        url: 'http://localhost:8090/search/v1/'+req.query.data
-      }, function (err, resp) {
-        if (err) return console.error(err.message);
-      
-        console.log(resp.body);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Content-Type', 'application/json');
-        console.log(JSON.stringify(resp.body));
-        res.send(JSON.stringify(resp.body));
+            if (stat) {
+                console.log(
+                    'Node: %s exists and its version is: %j',
+                    path,
+                    stat.version
+                );
 
-      });
+                return true;
+            } else {
+                console.log('Node %s does not exist.', path);
+                return false;
+            }
+        }
+    );
+}
 
-}); 
+function listChildren(client, path) {
+    client.getChildren(
+        path,
+        function (event) {
+            console.log('Got watcher event: %s', event);
+            listChildren(client, path);
+        },
+        function (error, children, stat) {
+            if (error) {
+                console.log(
+                    'Failed to list children of node: %s due to: %s.',
+                    path,
+                    error
+                );
+                return;
+            }
 
-app.get('/getVideos',function(req, res){
+            console.log('Children of node: %s are: %j.', path, children);
+            console.log("check this");
+            for(var i=0;i<children.length;i++){
+                var path2 = '/zeus/node/'+children[i];
+                console.log("bsja");
+                console.log(path2);
+                getData(client,path2);
+            }
+            return children;
+        }
+    );
+}
 
-    console.log("got the hit");
-    request({
-        method: 'GET',
-        url: 'http://localhost:4000/getVideos',
-      }, function (err, resp) {
-        if (err) return console.error(err.message);
-      
-        console.log(resp.body);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Content-Type', 'application/json');
-        console.log(JSON.stringify(resp.body));
-        res.send(JSON.stringify(resp.body));
+function getData(client, path) {
+    client.getData(
+        path,
+        function (event) {
+            console.log('Got event: %s', event);
+            getData(client, path);
+        },
+        function (error, data, stat) {
+            if (error) {
+                console.log('Error occurred when getting data: %s.', error);
+                return;
+            }
 
-      });
-
-}); 
-
-
+            console.log(
+                'Node: %s has data: %s, version: %d',
+                path,
+                data ? data.toString() : undefined,
+                stat.version
+            );
+        }
+    );
+}
 
 module.exports=app;
 
