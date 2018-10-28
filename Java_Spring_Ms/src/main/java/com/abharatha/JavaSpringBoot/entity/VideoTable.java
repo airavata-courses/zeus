@@ -33,13 +33,16 @@ public class VideoTable {
 	
 	@Column(name = "THUMBNAIL")
 	private String thumbnail;
+	
+	@Column(name = "CATEGORY")
+	private String category;
 
 	public VideoTable() {
 		super();
 	}
 
 	public VideoTable(Integer videoTbId, String videoName, String videoDesc, String videoLink, Integer uploadedBy,
-			Integer views, String thumbnail) {
+			Integer views, String thumbnail, String category) {
 		super();
 		this.videoTbId = videoTbId;
 		this.videoName = videoName;
@@ -48,6 +51,7 @@ public class VideoTable {
 		this.uploadedBy = uploadedBy;
 		this.views = views;
 		this.thumbnail = thumbnail;
+		this.category=category;
 	}
 
 	public Integer getVideoTbId() {
@@ -105,13 +109,24 @@ public class VideoTable {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	@Override
 	public String toString() {
 		return "VideoTable [videoTbId=" + videoTbId + ", videoName=" + videoName + ", videoDesc=" + videoDesc
 				+ ", videoLink=" + videoLink + ", uploadedBy=" + uploadedBy + ", views=" + views + ", thumbnail="
-				+ thumbnail + "]";
+				+ thumbnail + ", category=" + category + "]";
 	}
+	
+
+
 	
 		
 }
