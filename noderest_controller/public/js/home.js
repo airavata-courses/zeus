@@ -23,7 +23,7 @@ function autocomplete(inp, arr) {
   console.log("CheckMax");
   // console.log(inp);
    console.log(arr);
-  console.log(arr[0].videoLink);
+  // console.log(arr[0].videoLink);
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -51,22 +51,34 @@ function autocomplete(inp, arr) {
           /*make the matching letters bold:*/
           b.innerHTML = "<strong>" + arr[i].videoName.substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].videoName.substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
+          
           b.innerHTML += "<input type='hidden' value='" + arr[i].videoName + "'><input type='hidden' value='" + arr[i].videoLink + "'>";
+          b.innerHTML +="<input type='hidden' value='" + arr[i].category + "'><input type='hidden' value='" + arr[i].uploadedBy + "'>";
+          
           /*execute a function when someone clicks on the item value (DIV element):*/
+          console.log(b.innerHTML);
+          console.log("Testing Again");
+          console.log(arr);
           b.addEventListener("click", function(e) {
+           
               /*insert the value for the autocomplete text field:*/
+              console.log("Testing max Again");
               console.log(e);
               var url = this.getElementsByTagName("input")[1].value;
               inp.value = this.getElementsByTagName("input")[0].value;
+              var cat=this.getElementsByTagName("input")[2].value;
+              console.log(cat);
+              
+              var user=this.getElementsByTagName("input")[3].value;
+             
               $.ajax({
                 url: "/addQueue",
                 crossDomain: true,
-                data: {userId: "1", category: "comedy"},
+                data: {userId: "1", category: cat},
                 success: function(result){
                   console.log("added to queue");
               }});          
-              window.location="/playVideo?url="+url;
+               window.location="/playVideo?url="+url;
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();

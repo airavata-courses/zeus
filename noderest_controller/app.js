@@ -7,6 +7,10 @@ var bodyParser=require("body-parser");
 const importer = require('node-mysql-importer')
 var request = require('request')
 var MYSQLCONNECTION = require('./constants');
+// const zookeeper = require('./zk.js')
+
+
+var port='3001'
 
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
@@ -15,25 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// importer.config({
-//     'host': 'localhost',
-//     'user': MYSQLCONNECTION.MYSQL_USERNAME,
-//     'password': MYSQLCONNECTION.MYSQL_PASSWORD
-// });
-
-// importer.importSQL('data.sql').then( () => {
-//     console.log('all statements have been executed')
-// }).catch( err => {
-//     console.log(`error: ${err}`)
-// });
-
-
 console.log("Controller is running at 3001");
 
 
-app.listen(3001);
+app.listen(port);
 
-
+// zookeeper.zkCreateClient(port);
 
 app.get('/',function(req,res){
     return res.render('index');    
@@ -75,8 +66,7 @@ app.get('/logout',function(req, res){
 
 
 app.get('/addQueue', function(req, res){   
-    
-    
+   
     request({
         method: 'GET',
         url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category
@@ -91,10 +81,12 @@ app.get('/signup',function(req,res){
 
 });
 
+
 app.post('/signup',function(req,res){
     
     var email= req.body.uname;
     var password = req.body.psw;
+    
     request.post(
         'http://localhost:3050/signup',
         { 
