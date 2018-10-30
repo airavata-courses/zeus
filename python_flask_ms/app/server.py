@@ -6,6 +6,9 @@ import pika
 import threading
 import json
 import pymysql.cursors
+import random
+import requests
+from kazoo import client as kz_client
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
@@ -13,6 +16,7 @@ channel = connection.channel()
 channel.queue_declare(queue='zeus.queue')
 
 app = Flask(__name__)
+port="4000"
 
 def callback(ch, method, properties, body):
     print(body)
@@ -78,17 +82,19 @@ def python_flask_ms():
             return "post req"
 
     @app.route("/getVideos", methods=['GET'])
-    def getPrefs():
+    def getVideos():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
         return jsonify(data)
 
     @app.route("/getPrefs", methods = ['GET'])
-    def getVideos():
+    def getPrefs():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from userpreferencestable")
         data = cursor.fetchall()
+        print("testing")
+        print(data)
         return jsonify(data)
 
     mysql.init_app(app)
@@ -96,9 +102,56 @@ def python_flask_ms():
     return app
 
 
+my_client = kz_client.KazooClient(hosts='localhost:2181')
+
+
+def my_listener(state):
+    if state == kz_client.KazooState.CONNECTED:
+        print("Client connected !")
+
+
+my_client.add_listener(my_listener)
+my_client.start(timeout=5)
+
+
+homepath="/zeus"
+if (my_client.exists(homepath) is None):
+    my_client.create(homepath)
+
+nodepath="/python"
+if (my_client.exists(homepath+nodepath) is None):
+    my_client.create(homepath+nodepath)
+
+
+
+s="/python:"+port
+ip= requests.get('https://ip.42.pl/raw').text
+# print(ip)
+buffer=ip+':'+port
+b=buffer.encode('utf-8')
+if (my_client.exists(homepath+nodepath+s) is None):
+    my_client.create(homepath+nodepath+s,b)
+#
+
+# # Print the version of a node and its data
+data, stat = my_client.get(homepath+nodepath+s)
+print(" data: %s" % (data.decode("utf-8")))
+#
+# # List the children
+children = my_client.get_children(homepath+nodepath)
+length=len(children)
+print("There are %s children with names %s" % (len(children), children))
+
+##LoadBalancer
+randomno=random.randint(0,length-1)
+print(children[randomno])
+data1, stat = my_client.get(homepath+nodepath+'/'+children[randomno])
+print(" random node for service discovery: %s" % (data1.decode("utf-8")))
+
+
 if __name__ == '__main__':
    app = python_flask_ms()
-   app.run("0.0.0.0","4000")
+   app.run("0.0.0.0",port)
 
 
 
