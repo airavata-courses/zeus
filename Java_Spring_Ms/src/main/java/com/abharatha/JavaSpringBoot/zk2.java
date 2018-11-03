@@ -22,7 +22,7 @@ import org.apache.zookeeper.Watcher;
 import org.apache.curator.x.discovery.ServiceInstance;
 
 public class zk2 {
-	private static String zookeeperConnectionString = "localhost:2181";
+	private static String zookeeperConnectionString = "149.165.170.230:2181";
     private static Random randomGenerator = new Random();
 	private static final String PATH = "/zeus/java";
 	
@@ -33,12 +33,12 @@ public class zk2 {
 		ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
 		client = CuratorFrameworkFactory.newClient(zookeeperConnectionString, retryPolicy);
 		client.start();
-		
-		List<String> instances = client.getChildren().forPath("/zeus/java");
+		String path = "/zeus/java";
+		List<String> instances = client.getChildren().forPath(path);
 		System.out.println(instances.size());
 		int index = randomGenerator.nextInt(instances.size());
 
-		System.out.println(new String(client.getData().forPath("/zeus/java/"+instances.get(index))));
+		System.out.println(new String(client.getData().forPath(path+"/"+instances.get(index))));
 
 	}
 

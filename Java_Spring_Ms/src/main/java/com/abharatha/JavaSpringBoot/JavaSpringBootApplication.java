@@ -31,12 +31,12 @@ public class JavaSpringBootApplication {
 	public void setZkUrl(String value) {
 		this.zookeeperUrl = value;
 	}
-	
+
 	@Value("${zookeeper.port}")
 	public void setZkPort(String value) {
 		this.zookeeperPort = value;
 	}
-	
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(JavaSpringBootApplication.class, args);
@@ -52,7 +52,7 @@ public class JavaSpringBootApplication {
 		CuratorFramework client = null;
 
 		ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
-		client = CuratorFrameworkFactory.newClient(zookeeperUrl+":"+zookeeperPort, retryPolicy);
+		client = CuratorFrameworkFactory.newClient(zookeeperUrl + ":" + zookeeperPort, retryPolicy);
 		client.start();
 
 		try {
@@ -61,7 +61,7 @@ public class JavaSpringBootApplication {
 			String ip = in.readLine();
 			String s = ip + ":" + port;
 			System.out.println(s);
-			createNode(client, "/zeus/java/springBoot" + port, s.getBytes());
+			createNode(client, "/zeus/java/springBoot" + ip + port, s.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
