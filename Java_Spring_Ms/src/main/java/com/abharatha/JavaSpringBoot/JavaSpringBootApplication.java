@@ -61,15 +61,24 @@ public class JavaSpringBootApplication {
 			String ip = in.readLine();
 			String s = ip + ":" + port;
 			System.out.println(s);
+			createParents(client, "/zeus/java", null);
 			createNode(client, "/zeus/java/springBoot" + ip + port, s.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void createNode(CuratorFramework client, String path, byte[] payload) throws Exception {
 		client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path, payload);
+	}
+
+	public static void createParents(CuratorFramework client, String path, byte[] payload) {
+		try {
+			client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/zeus/java", payload);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Parents already exists");
+		}
 	}
 
 }
