@@ -122,23 +122,20 @@ nodepath="/python"
 if (my_client.exists(homepath+nodepath) is None):
     my_client.create(homepath+nodepath)
 
-
-
-s="/python:"+port
 ip= requests.get('https://ip.42.pl/raw').text
-# print(ip)
 buffer=ip+':'+port
 b=buffer.encode('utf-8')
-if (my_client.exists(homepath+nodepath+s) is None):
-    my_client.create(homepath+nodepath+s,b)
-#
+s="/python" + ip + port
+
+if (my_client.exists(homepath + nodepath + s) is None):
+    my_client.create(homepath + nodepath + s, b)
 
 # # Print the version of a node and its data
-data, stat = my_client.get(homepath+nodepath+s)
+data, stat = my_client.get(homepath + nodepath + s)
 print(" data: %s" % (data.decode("utf-8")))
 #
 # # List the children
-children = my_client.get_children(homepath+nodepath)
+children = my_client.get_children(homepath + nodepath)
 length=len(children)
 print("There are %s children with names %s" % (len(children), children))
 
