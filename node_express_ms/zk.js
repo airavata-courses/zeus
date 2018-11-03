@@ -18,7 +18,7 @@ module.exports = {
         }))
         client.connect();
 
-        await client.create(homePath, buffer, zk.CreateMode.PERSISTENT, function (error) {
+        await client.create(homePath, buffer, zk.CreateMode.EPHEMERAL, function (error) {
             if (error) {
                 console.log('Failed to create node: %s due to: %s.', homePath, error);
             } else {
@@ -26,7 +26,7 @@ module.exports = {
             }
         });
 
-        await client.create(homePath+nodePath, buffer, zk.CreateMode.PERSISTENT, function (error) {
+        await client.create(homePath+nodePath, buffer, zk.CreateMode.EPHEMERAL, function (error) {
             if (error) {
                 console.log('Failed to create node: %s due to: %s.', homePath+nodePath, error);
             } else {
@@ -34,8 +34,8 @@ module.exports = {
             }
         });
 
-        var instance = homePath+nodePath+'/node'+port
-        await client.create(instance, buffer, zk.CreateMode.PERSISTENT, function (error) {
+        var instance = homePath+nodePath+'/node'+ ip + port
+        await client.create(instance, buffer, zk.CreateMode.EPHEMERAL, function (error) {
             if (error) {
                 console.log('Failed to create node: %s due to: %s.', instance, error);
             } else {
