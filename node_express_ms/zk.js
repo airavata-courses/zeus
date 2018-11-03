@@ -1,7 +1,7 @@
 var zk = require('node-zookeeper-client')
 var publicIp = require('public-ip')
 
-var url = 'localhost:2181'; 
+var url = '149.165.170.230:2181'; 
 var homePath = '/zeus';
 var nodePath = '/node';
 var client
