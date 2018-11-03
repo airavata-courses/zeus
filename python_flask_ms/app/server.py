@@ -128,7 +128,7 @@ b=buffer.encode('utf-8')
 s="/python" + ip + port
 
 if (my_client.exists(homepath + nodepath + s) is None):
-    my_client.create(homepath + nodepath + s, b)
+    my_client.create(homepath + nodepath + s, b, ephemeral=True)
 
 # # Print the version of a node and its data
 data, stat = my_client.get(homepath + nodepath + s)
