@@ -16,19 +16,16 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-var url = 'localhost:2181';
+var url = '149.165.170.230:2181';
 console.log("Controller is running at 3001");
 
 app.listen(port);
-
-// zookeeper.zkCreateClient(port);
 
 app.get('/',function(req,res){
     return res.render('index');    
 });
 
 app.get('/login',function(req,res){
-    //console.log("login");
     return res.render('index');    
 });
 
@@ -36,8 +33,7 @@ app.post('/login', async function(req,res){
 	var email= req.body.uname;
     var password = req.body.psw;
     if(!client){
-        console.log("Zookeeper connection code");
-        client = zk.createClient(url, {retries: 2})  // Connect ZK
+        client = zk.createClient(url, {retries: 2})
         client.connect();
     }
     var randomNodeInstance = "";
@@ -50,36 +46,31 @@ app.post('/login', async function(req,res){
             
             client.getData(tmp, function(error, data){
                 if(error){
-                    console.log("error getting data from zoo");
+                    console.log("error getting data from zookeeper");
                 }else{
-                    console.log('shit worked');
-                    console.log(data.toString('utf8'));
                     var url = JSON.parse(data.toString('utf8'));
                     randomNodeInstance = url['host']+":"+url["port"];
-                    console.log(randomNodeInstance);
+                    var urlnode1='http://'+randomNodeInstance+'/login';
+                    request.post(
+                        urlnode1,
+                        // 'http://localhost:3050/login',
+                        { json: { 
+                            email: req.body.uname,
+                            password: req.body.psw
+                         } },
+                        function (error, response, body) {
+                            if (response.body.code == 200) {
+                                res.redirect('/home');
+                            }
+                            else{
+                                res.send("Incorrect login");
+                            }
+                        }
+                    );
                 }
             });
         }
     });
-    var urlnode1='http://'+randomNodeInstance+'/login';
-    console.log(urlnode1);   
-    request.post(
-        urlnode1,
-        // 'http://localhost:3050/login',
-        { json: { 
-            email: req.body.uname,
-            password: req.body.psw
-         } },
-        function (error, response, body) {
-            if (response.body.code == 200) {
-                res.redirect('/home');
-            }
-            else{
-                res.send("Incorrect login");
-            }
-        }
-    );
-
 });
 
 app.get('/logout',function(req, res){
@@ -115,24 +106,20 @@ app.get('/addQueue', async function(req, res){
                 if(error){
                     console.log("error getting data from zoo");
                 }else{
-                    console.log('shit worked');
-                    console.log(data.toString('utf8'));
                     // var url = JSON.parse(data.toString('utf8'));
                     randomJavaInstance = data.toString('utf8');
-                    console.log(randomJavaInstance);
+                    var urljava1='http://'+randomJavaInstance+'/search/video/';
+                    console.log(urljava1 + req.query.userId + '/' + req.query.category);
+                    request({
+                        method: 'GET',
+                        // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
+                        url: urljava1 + req.query.userId + '/' + req.query.category,
+                    }, function (err, resp) {
+                        if (err) return console.error(err.message);
+                    });
                 }
             });
         }
-    });
-    console.log(randomJavaInstance);
-    var urljava1='http://'+randomJavaInstance+'/search/video/';
-    console.log(urljava1 + req.query.userId + '/' + req.query.category);
-    request({
-        method: 'GET',
-        // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
-        url: urljava1 + req.query.userId + '/' + req.query.category,
-      }, function (err, resp) {
-        if (err) return console.error(err.message);
     });
     res.send("ok");
 });
@@ -163,37 +150,35 @@ app.post('/signup', async function(req,res){
                 if(error){
                     console.log("error getting data from zoo");
                 }else{
-                    console.log('shit worked');
-                    console.log(data.toString('utf8'));
                     var url = JSON.parse(data.toString('utf8'));
                     randomNodeInstance = url['host']+":"+url["port"];
-                    console.log(randomNodeInstance);
+                    var urlnode2='http://'+randomNodeInstance+'/signup';
+                    console.log(urlnode2);
+                    request.post(
+                        // 'http://localhost:3050/signup',
+                        urlnode2,
+                        { 
+                            json: { 
+                                "EMAIL":req.body.email,
+                                "PASSWORD":req.body.password,
+                                "PHONENO":req.body.PhoneNo
+                            }
+                        },
+                        function (error, response, body) {
+                            console.log(response.body.code);
+                            if (response.body.code == 200) {
+                                res.redirect('/login');
+                            }
+                            else{
+                                res.send("Signup not successful");
+                            }
+                        }
+                    );
+                    
                 }
             });
         }
     });
-    var urlnode2='http://'+randomNodeInstance+'/signup';
-    console.log(urlnode2);
-    request.post(
-        // 'http://localhost:3050/signup',
-        urlnode2,
-        { 
-            json: { 
-                "EMAIL":req.body.email,
-                "PASSWORD":req.body.password,
-                "PHONENO":req.body.PhoneNo
-            }
-        },
-        function (error, response, body) {
-            console.log(response.body.code);
-            if (response.body.code == 200) {
-                res.redirect('/login');
-            }
-            else{
-                res.send("Signup not successful");
-            }
-        }
-    );
     
 });
 
@@ -203,8 +188,6 @@ app.get("/home", function(req, response){
 
 app.get('/getSearchVideos', async function(req, res){
     
-    console.log("Testing Java 2")
-     
     if(!client){
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
@@ -221,34 +204,30 @@ app.get('/getSearchVideos', async function(req, res){
                 if(error){
                     console.log("error getting data from zoo");
                 }else{
-                    console.log('shit worked');
-                    console.log(data.toString('utf8'));
-                    
-                    // var url = JSON.parse(data.toString('utf8'));
                     randomJavaInstance = data.toString('utf8');
-                    console.log(randomJavaInstance);
+                    var urljava2='http://'+randomJavaInstance+'/search/v1/';
+                    console.log(urljava2 + req.query.data);
+                    request({
+                        method: 'GET',
+                        // url: 'http://localhost:8090/search/v1/'+req.query.data
+                        url: urljava2 + req.query.data
+                    }, function (err, resp) {
+                        if (err) return console.error(err.message);
+                    
+                        // console.log(resp.body);
+                        res.header("Access-Control-Allow-Origin", "*");
+                        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                        res.setHeader('Content-Type', 'application/json');
+                        // console.log(JSON.stringify(resp.body));
+                        res.send(JSON.stringify(resp.body));
+                    });
+
                 }
             });
         }
     });
 
-    var urljava2='http://'+randomJavaInstance+'/search/v1/';
-    console.log(urljava2 + req.query.data);
-    request({
-        method: 'GET',
-        // url: 'http://localhost:8090/search/v1/'+req.query.data
-        url: urljava2 + req.query.data
-      }, function (err, resp) {
-        if (err) return console.error(err.message);
-      
-        // console.log(resp.body);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Content-Type', 'application/json');
-        // console.log(JSON.stringify(resp.body));
-        res.send(JSON.stringify(resp.body));
-      });
-
+    
 }); 
 
 app.get('/getVideos',async function(req, res){
@@ -271,38 +250,28 @@ app.get('/getVideos',async function(req, res){
                 if(error){
                     console.log("error getting data from zoo");
                 }else{
-                    console.log('shit worked');
-                    console.log(data.toString('utf8'));
-                    
-                    // var url = JSON.parse(data.toString('utf8'));
                     randomPythonInstance = data.toString('utf8');
-                    console.log(randomPythonInstance);
+                    var urlpython='http://'+randomPythonInstance+'/getVideos';
+                    console.log(urlpython);
+                    request({
+                        method: 'GET',
+                        // url: 'http://localhost:4000/getVideos',
+                        url: urlpython,
+                    }, function (err, resp) {
+                        if (err) return console.error(err.message);
+                        res.header("Access-Control-Allow-Origin", "*");
+                        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                        res.setHeader('Content-Type', 'application/json');
+                        res.send(JSON.stringify(resp.body));
+                    });
                 }
             });
         }
     });
-    var urlpython='http://'+randomPythonInstance+'/getVideos';
-    console.log(urlpython);
-    request({
-        method: 'GET',
-        // url: 'http://localhost:4000/getVideos',
-        url: urlpython,
-      }, function (err, resp) {
-        if (err) return console.error(err.message);
-      
-        // console.log(resp.body);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Content-Type', 'application/json');
-        // console.log(JSON.stringify(resp.body));
-        res.send(JSON.stringify(resp.body));
-
-      });
-
+    
 }); 
 
 app.get('/playVideo',function(req, res){
-    console.log(req.query.url);
     return res.render('playvideo',{ url: req.query.url}); 
 }); 
 
