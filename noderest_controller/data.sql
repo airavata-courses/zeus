@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `userpreferencestable`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userpreferencestable` (
   `USERPREFERENCESTBID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERTBID` int(11) DEFAULT NULL,
+  `USERTBID` varchar(70) DEFAULT NULL,
   `CATEGORY` varchar(45) DEFAULT NULL,
   `COUNT` int(11) DEFAULT NULL,
   PRIMARY KEY (`USERPREFERENCESTBID`)
