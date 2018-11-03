@@ -45,12 +45,13 @@ public class VideoResource {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "video/{userId}/{category}")
-	public ResponseEntity<?> getUser(@PathVariable("userId") Integer userId,@PathVariable("category") String category) throws JsonProcessingException {
+	public ResponseEntity<?> getUser(@PathVariable("userId") String userId, @PathVariable("category") String category)
+			throws JsonProcessingException {
 		System.out.println("hi");
 		RecoQueueMessage message = new RecoQueueMessage(userId, category);
 		System.out.println(message);
 		helloRabbitProducer.sendMessage(message);
-	    return new ResponseEntity<>(null , HttpStatus.OK);
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
 }

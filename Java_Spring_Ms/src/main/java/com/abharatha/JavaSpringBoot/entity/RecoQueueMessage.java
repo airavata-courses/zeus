@@ -2,21 +2,25 @@ package com.abharatha.JavaSpringBoot.entity;
 
 public class RecoQueueMessage {
 
-	private Integer userId;
+	private String userId;
 	private String category;
 
-	public RecoQueueMessage(Integer userId, String category) {
+	public RecoQueueMessage(String userId, String category) {
 		super();
 		this.userId = userId;
 		this.category = category;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getUserId() {
+		return userId;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getCategory() {
+		return category;
 	}
 
 	public void setCategory(String category) {
@@ -25,11 +29,7 @@ public class RecoQueueMessage {
 
 	@Override
 	public String toString() {
-		return "[userId=" + userId + ", category=" + category + "]";
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+		return "RecoQueueMessage [userId=" + userId + ", category=" + category + "]";
 	}
 
 }

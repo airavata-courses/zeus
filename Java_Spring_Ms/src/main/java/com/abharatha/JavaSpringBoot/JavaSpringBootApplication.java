@@ -56,10 +56,11 @@ public class JavaSpringBootApplication {
 		client.start();
 
 		try {
-			URL whatismyip = new URL("http://checkip.amazonaws.com");
-			BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			URL ipAddress = new URL("https://ip.42.pl/raw");
+			BufferedReader in = new BufferedReader(new InputStreamReader(ipAddress.openStream()));
 			String ip = in.readLine();
 			String s = ip + ":" + port;
+			System.out.println(s);
 			createNode(client, "/zeus/java/springBoot" + port, s.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,7 +69,7 @@ public class JavaSpringBootApplication {
 	}
 
 	public static void createNode(CuratorFramework client, String path, byte[] payload) throws Exception {
-		client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(path, payload);
+		client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path, payload);
 	}
 
 }
