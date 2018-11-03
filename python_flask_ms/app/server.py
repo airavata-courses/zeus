@@ -11,7 +11,7 @@ import requests
 from kazoo import client as kz_client
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='149.165.170.230'))
 channel = connection.channel()
 channel.queue_declare(queue='zeus.queue')
 
@@ -36,17 +36,17 @@ def callback(ch, method, properties, body):
 
             sql = "SELECT * FROM `userpreferencestable` WHERE `USERTBID`=%s AND `CATEGORY`=%s"
             # cursor.execute(sql, (int(s["userId"]), s["category"]))
-            cursor.execute(sql, (int(s["userId"]), s["category"]))
+            cursor.execute(sql, (s["userId"], s["category"]))
             result = cursor.fetchone()
             if(result is None):
                 # Create a new record
                 sql = "INSERT INTO `userpreferencestable` (`USERTBID`, `CATEGORY`,`COUNT`) VALUES (%s, %s, %s)"
-                cursor.execute(sql, (int(s["userId"]), s["category"], 1))
+                cursor.execute(sql, (s["userId"], s["category"], 1))
             else:
                 a = result["COUNT"] + 1
                 # Create a new record
                 sql = "UPDATE `userpreferencestable` SET `COUNT`=%s WHERE `USERTBID`=%s AND `CATEGORY`=%s"
-                cursor.execute(sql, (a, int(s["userId"]), s["category"]))
+                cursor.execute(sql, (a, s["userId"], s["category"]))
         # connection is not autocommit by default. So you must commit to save
         # your changes.
         connection.commit()
@@ -102,7 +102,7 @@ def python_flask_ms():
     return app
 
 
-my_client = kz_client.KazooClient(hosts='localhost:2181')
+my_client = kz_client.KazooClient(hosts='149.165.170.230:2181')
 
 
 def my_listener(state):
