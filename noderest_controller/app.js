@@ -63,8 +63,8 @@ app.post('/login', async function(req,res){
     console.log(randomNodeInstance);
     var urlnode1='http://'+randomNodeInstance+'/login';
     request.post(
-        // urlnode1,
-        'http://localhost:3050/login',
+        urlnode1,
+        // 'http://localhost:3050/login',
         { json: { 
             email: req.body.uname,
             password: req.body.psw
@@ -116,7 +116,6 @@ app.get('/addQueue', async function(req, res){
                 }else{
                     console.log('shit worked');
                     console.log(data.toString('utf8'));
-                    
                     // var url = JSON.parse(data.toString('utf8'));
                     randomJavaInstance = data.toString('utf8');
                     console.log(randomJavaInstance);
@@ -125,11 +124,11 @@ app.get('/addQueue', async function(req, res){
         }
     });
     console.log(randomJavaInstance);
-    var urljava1='http://'+randomJavaInstance+'/search/video';
+    var urljava1='http://'+randomJavaInstance+'/search/video/';
     request({
         method: 'GET',
-        // url:urljava1+req.query.userId + '/' + req.query.category
-        url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category
+        // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
+        url: urljava1 + req.query.userId + '/' + req.query.category
       }, function (err, resp) {
         if (err) return console.error(err.message);
     });
@@ -173,8 +172,8 @@ app.post('/signup', async function(req,res){
     });
     var urlnode2='http://'+randomNodeInstance+'/signup';
     request.post(
-        // urlnode2
-        'http://localhost:3050/signup',
+        // 'http://localhost:3050/signup',
+        urlnode2,
         { 
             json: { 
                 "EMAIL":req.body.email,
@@ -230,11 +229,11 @@ app.get('/getSearchVideos', async function(req, res){
         }
     });
 
-    var urljava2='http://'+randomJavaInstance+'/search/v1';
+    var urljava2='http://'+randomJavaInstance+'/search/v1/';
     request({
         method: 'GET',
-        url: 'http://localhost:8090/search/v1/'+req.query.data
-        // url: urljava2
+        // url: 'http://localhost:8090/search/v1/'+req.query.data
+        url: urljava2 + req.query.data
       }, function (err, resp) {
         if (err) return console.error(err.message);
       
@@ -281,8 +280,8 @@ app.get('/getVideos',async function(req, res){
     var urlpython='http://'+randomPythonInstance+'/getVideos';
     request({
         method: 'GET',
-        url: 'http://localhost:4000/getVideos',
-        // url: urlpython,
+        // url: 'http://localhost:4000/getVideos',
+        url: urlpython,
       }, function (err, resp) {
         if (err) return console.error(err.message);
       

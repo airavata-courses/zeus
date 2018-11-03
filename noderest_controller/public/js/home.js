@@ -74,7 +74,7 @@ function autocomplete(inp, arr) {
               $.ajax({
                 url: "/addQueue",
                 crossDomain: true,
-                data: {userId: "1", category: cat},
+                data: {userId: "haritha.cbit2010@gmail.com", category: cat},
                 success: function(result){
                   console.log("added to queue");
               }});          
@@ -154,32 +154,26 @@ $(window).bind("load", function() {
       crossDomain: true,
       dataType:'json',
       success: function(result){
-        
         result=JSON.parse(result);
-        console.log("helloooooo")
-        // console.log(result[0][6])
-        console.log("helloooooo")
-        console.log(result[0])
-        // console.log($.parseJSON(result));
-      // console.log(result[0].THUMBNAIL);
-      var str="";
-      for(var i=0 ; i<result.length; i++){
-        str += `<div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-80" onclick="redirectVideo('`+result[i][3]+`');">
-        <img class="card-img-top" src=`+result[i][6]+` alt="">
+        console.log(result);
+        var str="";
+        for(var i=0 ; i<result.length; i++){
+          str += `<div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-80" onclick="redirectVideo('`+result[i][3]+`','`+result[i][7]+`');">
+          <img class="card-img-top" src=`+result[i][6]+` alt="">
 
-        <!--<a href=`+result[i][3]+`><img class="card-img-top" src=`+result[i][6]+` alt=""></a>-->
-          <!-- <a href="#"><img class="card-img-top" src=`+result[i][6]+` alt="">result[i][3]</a>-->
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">`+result[i][1]+`</a>
-            </h4>
-            <p class="card-text">`+result[i][2]+`</p>
-            <p class="card-text"> `+result[i][5]+` Views</p>
+          <!--<a href=`+result[i][3]+`><img class="card-img-top" src=`+result[i][6]+` alt=""></a>-->
+            <!-- <a href="#"><img class="card-img-top" src=`+result[i][6]+` alt="">result[i][3]</a>-->
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#">`+result[i][1]+`</a>
+              </h4>
+              <p class="card-text">`+result[i][2]+`</p>
+              <p class="card-text"> `+result[i][5]+` Views</p>
+            </div>
           </div>
-        </div>
-      </div>`;
-      
+        </div>`;
+        
     }
       document.getElementById('videos').innerHTML=str;
       
@@ -187,7 +181,15 @@ $(window).bind("load", function() {
 });
 
 
-function redirectVideo(url) {
-  console.log(url);
+function redirectVideo(url, cat) {
+  console.log(cat);
+  //var cat=this.getElementsByTagName("input")[2].value;
+  $.ajax({
+    url: "/addQueue",
+    crossDomain: true,
+    data: {userId: "haritha.cbit2010@gmail.com", category: cat},
+    success: function(result){
+      console.log("added to queue");
+  }});
   window.location="/playVideo?url="+url;
 }
