@@ -11,6 +11,7 @@ pipeline {
                 sh 'sudo docker stop node_rest_ms_cont || true && sudo docker rm node_rest_ms_cont || true'
                 sh 'sudo docker stop java_ms_cont || true && sudo docker rm java_ms_cont || true'
                 sh 'sudo docker stop python_flask_ms_cont || true && sudo docker rm python_flask_ms_cont || true'
+		sh 'sudo docker stop some-zookeeper || true && sudo docker rm some-zookeeper || true'
             }
         }
 
