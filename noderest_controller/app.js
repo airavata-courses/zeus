@@ -47,6 +47,7 @@ app.post('/login', async function(req,res){
         }else{
             randomNodeInstance = data[Math.floor(Math.random()*data.length)];        
             var tmp = '/zeus/node/'+randomNodeInstance;
+            
             client.getData(tmp, function(error, data){
                 if(error){
                     console.log("error getting data from zoo");
@@ -60,8 +61,8 @@ app.post('/login', async function(req,res){
             });
         }
     });
-    console.log(randomNodeInstance);
     var urlnode1='http://'+randomNodeInstance+'/login';
+    console.log(urlnode1);   
     request.post(
         urlnode1,
         // 'http://localhost:3050/login',
@@ -125,10 +126,11 @@ app.get('/addQueue', async function(req, res){
     });
     console.log(randomJavaInstance);
     var urljava1='http://'+randomJavaInstance+'/search/video/';
+    console.log(urljava1 + req.query.userId + '/' + req.query.category);
     request({
         method: 'GET',
         // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
-        url: urljava1 + req.query.userId + '/' + req.query.category
+        url: urljava1 + req.query.userId + '/' + req.query.category,
       }, function (err, resp) {
         if (err) return console.error(err.message);
     });
@@ -171,6 +173,7 @@ app.post('/signup', async function(req,res){
         }
     });
     var urlnode2='http://'+randomNodeInstance+'/signup';
+    console.log(urlnode2);
     request.post(
         // 'http://localhost:3050/signup',
         urlnode2,
@@ -230,6 +233,7 @@ app.get('/getSearchVideos', async function(req, res){
     });
 
     var urljava2='http://'+randomJavaInstance+'/search/v1/';
+    console.log(urljava2 + req.query.data);
     request({
         method: 'GET',
         // url: 'http://localhost:8090/search/v1/'+req.query.data
@@ -278,6 +282,7 @@ app.get('/getVideos',async function(req, res){
         }
     });
     var urlpython='http://'+randomPythonInstance+'/getVideos';
+    console.log(urlpython);
     request({
         method: 'GET',
         // url: 'http://localhost:4000/getVideos',
