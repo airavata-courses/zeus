@@ -22,7 +22,7 @@ def callback(ch, method, properties, body):
     print(body)
     s = json.loads(body)
 
-    connection = pymysql.connect(host='localhost',
+    connection = pymysql.connect(host='149.165.170.230',
                                  user='root',
                                  password='root',
                                  db='zeus_flask',
@@ -33,7 +33,6 @@ def callback(ch, method, properties, body):
         with connection.cursor() as cursor:
             #Fetch records
             # sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
-
             sql = "SELECT * FROM `userpreferencestable` WHERE `USERTBID`=%s AND `CATEGORY`=%s"
             # cursor.execute(sql, (int(s["userId"]), s["category"]))
             cursor.execute(sql, (s["userId"], s["category"]))
@@ -49,6 +48,7 @@ def callback(ch, method, properties, body):
                 cursor.execute(sql, (a, s["userId"], s["category"]))
         # connection is not autocommit by default. So you must commit to save
         # your changes.
+        print('rabbit consumer')
         connection.commit()
     finally:
         connection.close()
@@ -63,7 +63,7 @@ def python_flask_ms():
     app.config['MYSQL_DATABASE_USER']='root'
     app.config['MYSQL_DATABASE_PASSWORD']='root'
     app.config['MYSQL_DATABASE_DB']='zeus_flask'
-    app.config['MYSQL_DATABASE_HOST']='localhost'
+    app.config['MYSQL_DATABASE_HOST']='149.165.170.230'
 
     channel.basic_consume(callback,
                           queue='zeus.queue',
@@ -96,6 +96,28 @@ def python_flask_ms():
         print("testing")
         print(data)
         return jsonify(data)
+
+    @app.route("/getRecommendations", methods=['GET'])
+    def getRecommendations():
+        cursor = mysql.connect().cursor()
+        cursor.execute("SELECT * from userpreferencestable where USERTBID="+"'haritha.cbit2010@gmail.com' ORDER BY COUNT DESC")
+        data = cursor.fetchall()
+        recos = []
+        if(len(data)!=0):
+            for i in data:
+                cursor.execute(
+                    "SELECT * from videotable where CATEGORY='" + str(i[2]) +"'")
+                temp = cursor.fetchall()
+                for video in temp:
+                    recos.append(video)
+
+        if(len(recos)==0):
+            cursor.execute("SELECT * from videotable")
+            temp = cursor.fetchall()
+            for video in temp:
+                recos.append(video)
+
+        return jsonify(recos[0:5])
 
     mysql.init_app(app)
 
