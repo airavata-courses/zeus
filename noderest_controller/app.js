@@ -112,7 +112,7 @@ app.get('/addQueue', async function(req, res){
                     console.log(urljava1 + req.query.userId + '/' + req.query.category);
                     request({
                         method: 'GET',
-                        // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
+                        //  url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
                         url: urljava1 + req.query.userId + '/' + req.query.category,
                     }, function (err, resp) {
                         if (err) return console.error(err.message);
@@ -274,5 +274,47 @@ app.get('/getVideos',async function(req, res){
 app.get('/playVideo',function(req, res){
     return res.render('playvideo',{ url: req.query.url}); 
 }); 
+
+app.get('/getRecommendations',async function(req, res){
+    
+    console.log("Testing Python for recommendations")
+
+    if(!client){
+        console.log("Zookeeper connection code");
+        client = zk.createClient(url, {retries: 2})  // Connect ZK
+        client.connect();
+    }
+    var randomPythonInstance = "";
+    await client.getChildren('/zeus/python',function(error, data){
+        if(error){
+            console.log("error");
+        }else{
+            randomPythonInstance = data[Math.floor(Math.random()*data.length)];        
+            var tmp = '/zeus/python/'+randomPythonInstance;
+            client.getData(tmp, function(error, data){
+                if(error){
+                    console.log("error getting data from zoo");
+                }else{
+                    randomPythonInstance = data.toString('utf8');
+                    var urlpython='http://'+randomPythonInstance+'/getRecommendations';
+                    console.log(urlpython);
+                    request({
+                        method: 'GET',
+                        // url: 'http://localhost:4000/getRecommendations',
+                        url: urlpython,
+                    }, function (err, resp) {
+                        if (err) return console.error(err.message);
+                        res.header("Access-Control-Allow-Origin", "*");
+                        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                        res.setHeader('Content-Type', 'application/json');
+                        // console.log(JSON.stringify(resp.body))
+                        res.send(JSON.stringify(resp.body));
+                    });
+                }
+            });
+        }
+    });
+    
+});
 
 module.exports = app;
