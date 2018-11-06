@@ -1,5 +1,4 @@
 var express = require('express');
-var session = require('express-session');
 var http = require('http');
 var  path = require('path');
 var mysql = require('mysql');
@@ -11,14 +10,24 @@ const zk = require('node-zookeeper-client')
 var client;
 var port='3001'
 var app = express();
+var passport = require('passport');
+var auth = require('./auth');
+auth(passport);
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: 'ssshhhhh'}));
-var sess;
+app.use(passport.initialize());
+app.use(passport.session());
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
+app.use(cookieSession({
+    name: 'session',
+    keys: ['123']
+}));
+app.use(cookieParser());
 var url = '149.165.170.230:2181';
 console.log("Controller is running at 3001");
 
@@ -28,13 +37,27 @@ app.get('/',function(req,res){
     return res.render('index');    
 });
 
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.email']
+}));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }),
+    (req, res) => { 
+        req.session.token = req.user.profile.emails[0].value;
+        res.redirect('/home');
+    }
+);
+
+
 app.get('/login',function(req,res){
     return res.render('index');    
 });
 
 app.post('/login', async function(req,res){
-    sess = req.session;
-	var email= req.body.uname;
+    var email= req.body.uname;
     var password = req.body.psw;
     if(!client){
         client = zk.createClient(url, {retries: 2})
@@ -64,7 +87,7 @@ app.post('/login', async function(req,res){
                          } },
                         function (error, response, body) {
                             if (response.body.code == 200) {
-                                sess.email=req.body.uname;
+                                req.session.token = req.body.uname;
                                 res.redirect('/home');
                             }
                             else{
@@ -79,27 +102,14 @@ app.post('/login', async function(req,res){
 });
 
 app.get('/logout',function(req, res){
-    if(!client){
-        client = zk.createClient(url, {retries: 2})  // Connect ZK
-        client.connect();
-    }
-    else{
-        client.close();
-    }
-    req.session.destroy(function(err) {
-        if(err) {
-          console.log(err);
-        } else {
-          res.redirect('/');
-        }
-      });      
+    req.session = null;  
+    res.redirect('/');   
 }); 
 
 
 app.get('/addQueue', async function(req, res){   
     
-    sess = req.session;
-    if(!sess.email){
+    if (!req.session.token) {
         response.redirect('/');
     }
     if(!client){
@@ -120,11 +130,11 @@ app.get('/addQueue', async function(req, res){
                 }else{
                     randomJavaInstance = data.toString('utf8');
                     var urljava1='http://'+randomJavaInstance+'/search/video/';
-                    console.log(urljava1 + sess.email + '/' + req.query.category);
+                    console.log(urljava1 + req.session.token + '/' + req.query.category);
                     request({
                         method: 'GET',
                         // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
-                        url: urljava1 + sess.email + '/' + req.query.category,
+                        url: urljava1 + req.session.token + '/' + req.query.category,
 
                     }, function (err, resp) {
                         if (err) return console.error(err.message);
@@ -194,19 +204,19 @@ app.post('/signup', async function(req,res){
 });
 
 app.get("/home", function(req, response){
-    sess = req.session;
-    if(sess.email){
-        console.log(sess.email);
+    // console.log(req.session);
+    if (req.session.token) {
+        response.cookie('token', req.session.token);
+        console.log(req.session.token);
         response.render('home');
-    }else{
+    } else{
         response.redirect('/');
     }
     
 });
 
 app.get('/getSearchVideos', async function(req, res){
-    sess = req.session;
-    if(!sess.email){
+    if (!req.session.token) {
         response.redirect('/');
     }
     if(!client){
