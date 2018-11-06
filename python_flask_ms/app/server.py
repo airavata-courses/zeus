@@ -105,7 +105,7 @@ def python_flask_ms():
             email = request.json['email']
         except:
             email = 'haritha.cbit2010@gmail.com'
-        print email
+        print(email)
         cursor.execute("SELECT * from userpreferencestable where USERTBID='"+email+"' ORDER BY COUNT DESC")
         data = cursor.fetchall()
         recos = []
