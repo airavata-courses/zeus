@@ -286,6 +286,7 @@ app.get('/getVideos',async function(req, res){
                         method: 'GET',
                         // url: 'http://localhost:4000/getVideos',
                         url: urlpython,
+                        
                     }, function (err, resp) {
                         if (err) return console.error(err.message);
                         res.header("Access-Control-Allow-Origin", "*");
@@ -331,6 +332,9 @@ app.get('/getRecommendations',async function(req, res){
                         method: 'GET',
                         // url: 'http://localhost:4000/getRecommendations',
                         url: urlpython,
+                        json: { 
+                            email: req.session.token
+                         },
                     }, function (err, resp) {
                         if (err) return console.error(err.message);
                         res.header("Access-Control-Allow-Origin", "*");
