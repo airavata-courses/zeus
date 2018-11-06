@@ -184,7 +184,8 @@ $(window).bind("load", function() {
       crossDomain: true,
       dataType:'json',
       success: function(result){
-        result=JSON.parse(result);
+        console.log(result);
+        //result=JSON.parse(result);
         console.log("#############")
         console.log(result);
 
