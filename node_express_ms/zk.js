@@ -35,7 +35,7 @@ module.exports = {
         });
 
         var instance = homePath+nodePath+'/node'+ ip + port
-        await client.create(instance, buffer, zk.CreateMode.EPHEMERAL, function (error) {
+        await client.create(instance, buffer, zk.CreateMode.PERSISTENT, function (error) {
             if (error) {
                 console.log('Failed to create node: %s due to: %s.', instance, error);
             } else {
