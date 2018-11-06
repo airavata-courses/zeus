@@ -1,8 +1,8 @@
 var express = require('express');
+var session = require('express-session');
 var http = require('http');
 var  path = require('path');
-var app = express();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var bodyParser=require("body-parser");
 const importer = require('node-mysql-importer')
 var request = require('request')
@@ -10,12 +10,15 @@ var MYSQLCONNECTION = require('./constants');
 const zk = require('node-zookeeper-client')
 var client;
 var port='3001'
+var app = express();
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'ssshhhhh'}));
+var sess;
 var url = '149.165.170.230:2181';
 console.log("Controller is running at 3001");
 
@@ -30,6 +33,7 @@ app.get('/login',function(req,res){
 });
 
 app.post('/login', async function(req,res){
+    sess = req.session;
 	var email= req.body.uname;
     var password = req.body.psw;
     if(!client){
@@ -43,7 +47,7 @@ app.post('/login', async function(req,res){
         }else{
             randomNodeInstance = data[Math.floor(Math.random()*data.length)];        
             var tmp = '/zeus/node/'+randomNodeInstance;
-            
+            console.log(tmp);
             client.getData(tmp, function(error, data){
                 if(error){
                     console.log("error getting data from zookeeper");
@@ -60,6 +64,7 @@ app.post('/login', async function(req,res){
                          } },
                         function (error, response, body) {
                             if (response.body.code == 200) {
+                                sess.email=req.body.uname;
                                 res.redirect('/home');
                             }
                             else{
@@ -79,17 +84,24 @@ app.get('/logout',function(req, res){
         client.connect();
     }
     else{
-        console.log("logout");
         client.close();
     }
-    console.log("test");
-    res.redirect('/login');
+    req.session.destroy(function(err) {
+        if(err) {
+          console.log(err);
+        } else {
+          res.redirect('/');
+        }
+      });      
 }); 
 
 
 app.get('/addQueue', async function(req, res){   
-    console.log("Testing Java")
     
+    sess = req.session;
+    if(!sess.email){
+        response.redirect('/');
+    }
     if(!client){
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
@@ -106,14 +118,13 @@ app.get('/addQueue', async function(req, res){
                 if(error){
                     console.log("error getting data from zoo");
                 }else{
-                    // var url = JSON.parse(data.toString('utf8'));
                     randomJavaInstance = data.toString('utf8');
                     var urljava1='http://'+randomJavaInstance+'/search/video/';
-                    console.log(urljava1 + req.query.userId + '/' + req.query.category);
+                    console.log(urljava1 + sess.email + '/' + req.query.category);
                     request({
                         method: 'GET',
                         // url: 'http://localhost:8090/search/video/'+req.query.userId + '/' + req.query.category,
-                        url: urljava1 + req.query.userId + '/' + req.query.category,
+                        url: urljava1 + sess.email + '/' + req.query.category,
                     }, function (err, resp) {
                         if (err) return console.error(err.message);
                     });
@@ -130,7 +141,6 @@ app.get('/signup',function(req,res){
 
 
 app.post('/signup', async function(req,res){
-    console.log("TestingNode2")
     var email= req.body.uname;
     var password = req.body.psw;
 
@@ -183,11 +193,21 @@ app.post('/signup', async function(req,res){
 });
 
 app.get("/home", function(req, response){
-    response.render('home')
+    sess = req.session;
+    if(sess.email){
+        console.log(sess.email);
+        response.render('home');
+    }else{
+        response.redirect('/');
+    }
+    
 });
 
 app.get('/getSearchVideos', async function(req, res){
-    
+    sess = req.session;
+    if(!sess.email){
+        response.redirect('/');
+    }
     if(!client){
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
@@ -231,8 +251,6 @@ app.get('/getSearchVideos', async function(req, res){
 }); 
 
 app.get('/getVideos',async function(req, res){
-    
-    console.log("Testing Python")
 
     if(!client){
         console.log("Zookeeper connection code");

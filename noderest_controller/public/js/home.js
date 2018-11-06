@@ -74,7 +74,7 @@ function autocomplete(inp, arr) {
               $.ajax({
                 url: "/addQueue",
                 crossDomain: true,
-                data: {userId: "haritha.cbit2010@gmail.com", category: cat},
+                data: {category: cat},
                 success: function(result){
                   console.log("added to queue");
               }});          
