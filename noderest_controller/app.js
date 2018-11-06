@@ -262,7 +262,9 @@ app.get('/getSearchVideos', async function(req, res){
 }); 
 
 app.get('/getVideos',async function(req, res){
-
+    if (!req.session.token) {
+        response.redirect('/');
+    }
     if(!client){
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
@@ -302,11 +304,16 @@ app.get('/getVideos',async function(req, res){
 }); 
 
 app.get('/playVideo',function(req, res){
+    if (!req.session.token) {
+        response.redirect('/');
+    }
     return res.render('playvideo',{ url: req.query.url}); 
 }); 
 
 app.get('/getRecommendations',async function(req, res){
-    
+    if (!req.session.token) {
+        response.redirect('/');
+    }
     console.log("Testing Python for recommendations")
 
     if(!client){
