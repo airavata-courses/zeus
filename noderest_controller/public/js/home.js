@@ -147,7 +147,6 @@ function autocomplete(inp, arr) {
 }
 
 $(window).bind("load", function() {
-
   console.log("test");
   $.ajax({
       url: "/getVideos",
@@ -172,16 +171,40 @@ $(window).bind("load", function() {
               <p class="card-text"> `+result[i][5]+` Views</p>
             </div>
           </div>
-        </div>`;
-        
+        </div>`;        
     }
-      document.getElementById('videos').innerHTML=str;
-      
+      document.getElementById('videos').innerHTML=str;     
+  }});
+});
+
+$(window).bind("load", function() {
+  console.log("test");
+  $.ajax({
+      url: "/getRecommendations",
+      crossDomain: true,
+      dataType:'json',
+      success: function(result){
+        result=JSON.parse(result);
+        console.log("#############")
+        console.log(result);
+
+         var str="";
+         for(var i=0 ; i<result.length; i++){
+          
+          console.log(result[0][3])
+          console.log(result[0][7])
+          str+=`<div class="videoRecoList" onclick="redirectVideo('`+result[i][3]+`','`+result[i][7]+`');">
+          <img src=`+result[i][6]+`></div>`;
+        
+     }
+     document.getElementById('recommendedvideos').innerHTML=str;     
   }});
 });
 
 
+
 function redirectVideo(url, cat) {
+  console.log("redirected")
   console.log(cat);
   //var cat=this.getElementsByTagName("input")[2].value;
   $.ajax({
