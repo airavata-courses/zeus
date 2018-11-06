@@ -100,8 +100,8 @@ def python_flask_ms():
     @app.route("/getRecommendations", methods=['GET'])
     def getRecommendations():
         cursor = mysql.connect().cursor()
-        print(request.data.email)
-
+        d = json.loads(request.data)
+        print(d['email'])
         cursor.execute("SELECT * from userpreferencestable where USERTBID="+"'haritha.cbit2010@gmail.com' ORDER BY COUNT DESC")
         data = cursor.fetchall()
         recos = []
