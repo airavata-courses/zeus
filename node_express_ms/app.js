@@ -7,7 +7,7 @@ var bodyParser=require("body-parser");
 var MYSQLCONNECTION = require('./constants');
 var port='3051';
 const zookeeper = require('./zk.js')
-
+let count=0;
 app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,11 +23,19 @@ app.get('/',function(req,res){
 
     return res.send('hello');    
 });
+// count++;
+app.get('/getRequestHitCount',function(req,res){
+    return res.send({"count":count});    
+});
+
 
 app.post('/login',function(req,res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
+    count=count+1;
+    // console.log("------------------------");
+    // console.log(count);
+    
     var connection = mysql.createConnection({
         host     : 'localhost',
         user     : MYSQLCONNECTION.MYSQL_USERNAME,
