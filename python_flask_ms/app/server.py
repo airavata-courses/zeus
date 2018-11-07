@@ -59,6 +59,7 @@ def callback(ch, method, properties, body):
 
 def python_flask_ms():
     CORS(app)
+    count = {'value': 0}
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER']='root'
     app.config['MYSQL_DATABASE_PASSWORD']='root'
@@ -83,10 +84,15 @@ def python_flask_ms():
 
     @app.route("/getVideos", methods=['GET'])
     def getVideos():
+        count['value']+=1
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
         return jsonify(data)
+
+    @app.route("/getServerHitCount", methods=['GET'])
+    def getServerHitCount():
+        return "The number of times /getVideos is hit = " + str(count['value'])
 
     @app.route("/getPrefs", methods = ['GET'])
     def getPrefs():
@@ -100,7 +106,7 @@ def python_flask_ms():
     @app.route("/getRecommendations", methods=['GET'])
     def getRecommendations():
         cursor = mysql.connect().cursor()
-        email = 'haritha.cbit2010@gmail.com'
+        email = ''
         try:
             email = request.json['email']
         except:
