@@ -29,7 +29,7 @@ public class VideoResource {
 
 	@Autowired
 	private VideoTableDao repository;
-
+	private static int count;
 	@Autowired
 	private HelloRabbitProducer helloRabbitProducer;
 
@@ -37,12 +37,21 @@ public class VideoResource {
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, path = "v1/{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VideoTable> searchVideos(@PathVariable("searchStr") String searchStr) {
-
+		count++;
 		List<VideoTable> list = repository.findByPlaceContaining(searchStr);
 
 		return list;
 
 	}
+	@Order(Ordered.HIGHEST_PRECEDENCE)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(method = RequestMethod.GET, path = "v2", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getCount() {
+		
+		return "Total no. of times /search/v1/{searchstr} is "+count;
+
+	}
+
 
 	@RequestMapping(method = RequestMethod.GET, path = "video/{userId}/{category}")
 	public ResponseEntity<?> getUser(@PathVariable("userId") String userId, @PathVariable("category") String category)
