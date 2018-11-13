@@ -233,10 +233,10 @@ app.get("/home", function(req, response){
 });
 
 app.get('/getSearchVideos', function(req, res){
-    // if (!req.session.token) {
-    //     res.redirect('/');
-    // }
-    // else{
+    if (!req.session.token) {
+        res.redirect('/');
+    }
+    else{
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
         console.log("Zookeeper connection");
@@ -276,15 +276,15 @@ app.get('/getSearchVideos', function(req, res){
             });
         });
         client.connect();
-    // }
+    }
 }); 
 
 app.get('/getVideos', function(req, res){
     
-    // if (!req.session.token) {   
-    //     res.redirect('/');
-    // }
-    // else{
+    if (!req.session.token) {   
+        res.redirect('/');
+    }
+    else{
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
         client.connect();
@@ -321,7 +321,7 @@ app.get('/getVideos', function(req, res){
             });
         });
         client.connect();
-    // }
+    }
 }); 
 
 app.get('/playVideo',function(req, res){
