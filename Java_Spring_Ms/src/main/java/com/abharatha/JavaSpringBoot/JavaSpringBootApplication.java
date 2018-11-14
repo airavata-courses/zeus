@@ -1,5 +1,7 @@
 package com.abharatha.JavaSpringBoot;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -17,6 +19,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.abharatha.JavaSpringBoot.dao")
 public class JavaSpringBootApplication {
 
+	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
+	
 	private static String zookeeperUrl;
 	private static String zookeeperPort;
 	private static final String PATH = "/zeus/java";
@@ -60,7 +64,7 @@ public class JavaSpringBootApplication {
 			BufferedReader in = new BufferedReader(new InputStreamReader(ipAddress.openStream()));
 			String ip = in.readLine();
 			String s = ip + ":" + port;
-			System.out.println(s);
+			logger.debug(s);
 			createParents(client, "/zeus/java", null);
 			createNode(client, "/zeus/java/springBoot" + ip + port, s.getBytes());
 		} catch (Exception e) {
@@ -77,7 +81,7 @@ public class JavaSpringBootApplication {
 			client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/zeus/java", payload);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("Parents already exists");
+			logger.debug("Parents already exists");
 		}
 	}
 

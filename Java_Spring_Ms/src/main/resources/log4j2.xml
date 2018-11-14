@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingFile name="RollingFile">
+		      <FileName>./mylog.log</FileName>
+		      <FilePattern>./%d{yyyy-MM-dd-hh-mm}.log.zip</FilePattern>
+		      <PatternLayout>
+		        <Pattern>%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n</Pattern>
+		      </PatternLayout>
+		      <Policies>
+		        <TimeBasedTriggeringPolicy interval="2" modulate="true" />
+		      </Policies>
+		      <DefaultRolloverStrategy max="5" />
+    	</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.abharatha.JavaSpringBoot" level="debug" additivity="false">
+        	<AppenderRef ref="RollingFile" />
+           <!-- <AppenderRef ref="ConsoleAppender" />-->
+        </Logger>
+
+         <Root level="debug">
+          <!--   <AppenderRef ref="ConsoleAppender" /> -->
+          <AppenderRef ref="RollingFile" />
+        </Root> 
+    </Loggers>
+</Configuration>

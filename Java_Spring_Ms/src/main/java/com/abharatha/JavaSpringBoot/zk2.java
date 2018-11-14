@@ -20,8 +20,10 @@ import org.apache.curator.x.discovery.UriSpec;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.apache.curator.x.discovery.ServiceInstance;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class zk2 {
+	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
 	private static String zookeeperConnectionString = "149.165.170.230:2181";
     private static Random randomGenerator = new Random();
 	private static final String PATH = "/zeus/java";
@@ -35,10 +37,10 @@ public class zk2 {
 		client.start();
 		String path = "/zeus/java";
 		List<String> instances = client.getChildren().forPath(path);
-		System.out.println(instances.size());
+		logger.debug(instances.size());
 		int index = randomGenerator.nextInt(instances.size());
 
-		System.out.println(new String(client.getData().forPath(path+"/"+instances.get(index))));
+		logger.debug(new String(client.getData().forPath(path+"/"+instances.get(index))));
 
 	}
 

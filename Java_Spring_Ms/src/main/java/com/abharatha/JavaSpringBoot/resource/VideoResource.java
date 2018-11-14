@@ -20,12 +20,17 @@ import com.abharatha.JavaSpringBoot.dao.VideoTableDao;
 import com.abharatha.JavaSpringBoot.entity.RecoQueueMessage;
 import com.abharatha.JavaSpringBoot.entity.VideoTable;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/search/")
 public class VideoResource {
+
+	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
+	
 
 	@Autowired
 	private VideoTableDao repository;
@@ -39,7 +44,12 @@ public class VideoResource {
 	public List<VideoTable> searchVideos(@PathVariable("searchStr") String searchStr) {
 		count++;
 		List<VideoTable> list = repository.findByPlaceContaining(searchStr);
-
+//		logger.debug("Debugging log");
+//        logger.info("Info log");
+//        logger.warn("Hey, This is a warning!");
+//        logger.error("Oops! We have an Error. OK");
+//        logger.fatal("Damn! Fatal error. Please fix me.");
+        
 		return list;
 
 	}
