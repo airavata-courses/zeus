@@ -109,9 +109,7 @@ app.post('/login', function(req,res){
             }
         );
     });
-     
     client.connect();
-    
 });
 
 app.get('/logout',function(req, res){
@@ -173,6 +171,7 @@ app.post('/signup', function(req,res){
     console.log("Zookeeper connection code");
     client = zk.createClient(url, {retries: 2})  // Connect ZK
     var randomNodeInstance = "";
+    
     client.once('connected', function () {
         console.log('Connected to ZooKeeper.');
         client.getChildren('/zeus/node',function(error, data){
@@ -241,6 +240,7 @@ app.get('/getSearchVideos', function(req, res){
         client = zk.createClient(url, {retries: 2})  // Connect ZK
         console.log("Zookeeper connection");
         var randomJavaInstance = "";
+        
         client.once('connected', function () {
             client.getChildren('/zeus/java',function(error, data){
                 if(error){
@@ -287,8 +287,8 @@ app.get('/getVideos', function(req, res){
     else{
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
-        client.connect();
         var randomPythonInstance = "";
+        
         client.once('connected', function () {
             client.getChildren('/zeus/python',function(error, data){
                 if(error){
@@ -341,6 +341,7 @@ app.get('/getRecommendations', function(req, res){
         console.log("Zookeeper connection code");
         client = zk.createClient(url, {retries: 2})  // Connect ZK
         var randomPythonInstance = "";
+        
         client.once('connected', function () {
             client.getChildren('/zeus/python',function(error, data){
                 if(error){
