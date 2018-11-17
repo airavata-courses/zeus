@@ -1,0 +1,27 @@
+Instuctions
+
+1) Setup Kubernetes (Assuming Docker is Installed)
+
+https://kubernetes.io/docs/setup/minikube/   (FOLLOW ALL INSTRUCTIONS LINE BY LINE FROM THIS WEBSITE. Minikube is for VIRTUALBOX)
+
+https://microk8s.io/  (FOLLOW ALL INSTRUCTIONS LINE BY LINE FROM THIS WEBSITE. Microk8s is for VMWARE WORKSTATION))
+
+2) kubectl create -f <pod name> (Depends upon how many microservices you have. For each microservice , one pod is assigned)
+
+3) Commands:
+    
+	kubectl get pods  ---- Get all pods
+	kubectl get services --- Get all services
+	kubectl get deployments  -- get all deployments
+	kubectl delete pods --all  -- delete all pods
+	kubectl delete services --all  -- delete all services
+	kubectl delete deployments --all   ---delete all services
+	kubectl delete deployments <deployment name>  -- delete a deployment
+	kubectl delete services <services name>  -- delete a service
+	kubectl delete pods <deployment name>  -- delete a pod
+	
+4) To understand microservices using kubernetes please visit the following links:
+
+https://dzone.com/articles/quick-guide-to-microservices-with-kubernetes-sprin
+
+https://dzone.com/articles/microservices-with-kubernetes-and-docker

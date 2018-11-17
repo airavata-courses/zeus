@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: python-flask-ms 
+   labels:
+    app: web
+spec:
+   replicas: 3
+   template:
+    metadata:
+     labels:
+        app: web    
+    spec:
+       containers:
+        - name: python-flask-ms
+          image: shayyag/python_flask_ms 
+          ports:
+            - protocol: "TCP"
+              containerPort: 96     
+            
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-flask-ms
+  labels:
+    app: web
+spec:
+  ports:
+    - port: 8096
+      name: python-flask-ms
+      protocol: "TCP"
+      targetPort: 96
+      nodePort: 30004    
+  type: LoadBalancer
+
+  

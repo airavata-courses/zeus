@@ -9,7 +9,7 @@
        
     - name: Install JAVA if not there
       script: "{{playbook_dir}}/AnsibleScripts/installjava.sh"
-      when: java_check.failed == True
+      when: java_check is failed
       
     - name: MAVEN CHECK
       command: mvn -version
@@ -18,7 +18,7 @@
        
     - name: Install MAVEN if not there
       script: "{{playbook_dir}}/AnsibleScripts/mvninstall.sh"
-      when: maven_check.failed == True
+      when: maven_check is failed
       
     - name: NODE JS CHECK
       command: node --version
@@ -27,7 +27,7 @@
        
     - name: Install NODE JS if not there
       script: "{{playbook_dir}}/AnsibleScripts/nodeinstall.sh"
-      when: node_check.failed == True
+      when: node_check is failed
       
     - name: PYTHON CHECK
       command: python --version
@@ -36,7 +36,7 @@
        
     - name: Install PYTHON if not there
       script: "{{playbook_dir}}/AnsibleScripts/pythoninstall.sh"
-      when: python_check.failed == True
+      when: python_check is failed
 
     - name: MYSQL CHECK
       command: mysql --version
@@ -45,8 +45,16 @@
        
     - name: Install MYSQL if not there
       script: "{{playbook_dir}}/AnsibleScripts/mysqlinstall.sh"
-      when: mysql_check.failed == True     
-      
+      when: mysql_check is failed     
+    
+    - name: RABBITMQ CHECK
+      command: rabbitmq-server --version
+      register: rabbitmq_check
+      ignore_errors: True
+       
+    - name: Install RABBITMQ if not there
+      script: "{{playbook_dir}}/AnsibleScripts/rabbitmqinstall.sh"
+      when: rabbitmq_check is failed     
       
 
 
