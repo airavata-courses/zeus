@@ -1,6 +1,7 @@
 package com.abharatha.JavaSpringBoot.resource;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -30,7 +31,6 @@ import org.apache.logging.log4j.Logger;
 public class VideoResource {
 
 	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
-	
 
 	@Autowired
 	private VideoTableDao repository;
@@ -41,27 +41,18 @@ public class VideoResource {
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, path = "v1/{searchStr}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<VideoTable> searchVideos(@PathVariable("searchStr") String searchStr) {
+	public List<Map<String, Object>> searchVideos(@PathVariable("searchStr") String searchStr) {
 		count++;
-		List<VideoTable> list = repository.findByPlaceContaining(searchStr);
-//		logger.debug("Debugging log");
-//        logger.info("Info log");
-//        logger.warn("Hey, This is a warning!");
-//        logger.error("Oops! We have an Error. OK");
-//        logger.fatal("Damn! Fatal error. Please fix me.");
-        
-		return list;
+		return repository.getVideoByNames(searchStr);
 
 	}
+
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, path = "v2", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getCount() {
-		
-		return "Total no. of times /search/v1/{searchstr} is "+count;
-
+		return "Total no. of times /search/v1/{searchstr} is " + count;
 	}
-
 
 	@RequestMapping(method = RequestMethod.GET, path = "video/{userId}/{category}")
 	public ResponseEntity<?> getUser(@PathVariable("userId") String userId, @PathVariable("category") String category)

@@ -1,47 +1,24 @@
 package com.abharatha.JavaSpringBoot.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Entity
-@Table(name = "VIDEOTABLE")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class VideoTable {
 
-	@Id
-	@Column(name = "VIDEOTBID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer videoTbId;
-
-	@Column(name = "VIDEONAME")
+	private String videoTbId;
 	private String videoName;
-
-	@Column(name = "VIDEODESC")
 	private String videoDesc;
-
-	@Column(name = "VIDEOLINK")
 	private String videoLink;
-
-	@Column(name = "UPLOADEDBY")
 	private Integer uploadedBy;
-
-	@Column(name = "VIEWS")
 	private Integer views;
-	
-	@Column(name = "THUMBNAIL")
 	private String thumbnail;
-	
-	@Column(name = "CATEGORY")
 	private String category;
 
 	public VideoTable() {
 		super();
 	}
 
-	public VideoTable(Integer videoTbId, String videoName, String videoDesc, String videoLink, Integer uploadedBy,
+	public VideoTable(String videoTbId, String videoName, String videoDesc, String videoLink, Integer uploadedBy,
 			Integer views, String thumbnail, String category) {
 		super();
 		this.videoTbId = videoTbId;
@@ -51,14 +28,14 @@ public class VideoTable {
 		this.uploadedBy = uploadedBy;
 		this.views = views;
 		this.thumbnail = thumbnail;
-		this.category=category;
+		this.category = category;
 	}
 
-	public Integer getVideoTbId() {
+	public String getVideoTbId() {
 		return videoTbId;
 	}
 
-	public void setVideoTbId(Integer videoTbId) {
+	public void setVideoTbId(String videoTbId) {
 		this.videoTbId = videoTbId;
 	}
 
@@ -109,7 +86,7 @@ public class VideoTable {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -124,9 +101,5 @@ public class VideoTable {
 				+ ", videoLink=" + videoLink + ", uploadedBy=" + uploadedBy + ", views=" + views + ", thumbnail="
 				+ thumbnail + ", category=" + category + "]";
 	}
-	
 
-
-	
-		
 }
