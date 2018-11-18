@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: node-express-ms 
+   name: node-express-ms-deployment 
    labels:
     app: web
 spec:
@@ -13,7 +13,7 @@ spec:
         app: web    
     spec:
        containers:
-        - name: node-express-ms
+        - name: node-express-ms-deployment
           image: shayyag/node_express_ms 
           ports:
             - protocol: "TCP"
@@ -24,15 +24,14 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-express-ms
-  labels:
-    app: web
+  name: node-express-ms-service
 spec:
+  selector:
+    app: web   
   ports:
     - port: 8088
-      name: node-express-ms
       protocol: "TCP"
-      targetPort: 88
+      targetPort: 8088
       nodePort: 30002
   type: LoadBalancer
 

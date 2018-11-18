@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: python-flask-ms 
+   name: python-flask-ms-deployment 
    labels:
     app: web
 spec:
@@ -13,7 +13,7 @@ spec:
         app: web    
     spec:
        containers:
-        - name: python-flask-ms
+        - name: python-flask-ms-deployment
           image: shayyag/python_flask_ms 
           ports:
             - protocol: "TCP"
@@ -23,15 +23,14 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: python-flask-ms
-  labels:
-    app: web
+  name: python-flask-ms-service
 spec:
+  selector:
+    app: web
   ports:
-    - port: 8096
-      name: python-flask-ms
+    - port: 8096  
       protocol: "TCP"
-      targetPort: 96
+      targetPort: 8096
       nodePort: 30004    
   type: LoadBalancer
 

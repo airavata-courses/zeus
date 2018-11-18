@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: java-ms 
+   name: java-ms-deployment 
    labels:
     app: web
 spec:
@@ -13,7 +13,7 @@ spec:
         app: web    
     spec:
        containers:
-        - name: java-ms
+        - name: java-ms-deployment
           image: shayyag/java_ms 
           ports:
             - protocol: "TCP"
@@ -24,15 +24,14 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: java-ms
-  labels:
-    app: web
+  name: java-ms-service
 spec:
+  selector: 
+    app: web
   ports:
     - port: 8092
-      name: java-ms
       protocol: "TCP"
-      targetPort: 92
+      targetPort: 8092
       nodePort: 30003
   type: LoadBalancer
 

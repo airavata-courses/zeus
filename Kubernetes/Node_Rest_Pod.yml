@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: node-rest 
+   name: node-rest-deployment
    labels:
     app: web
 spec:
@@ -13,7 +13,7 @@ spec:
         app: web    
     spec:
        containers:
-        - name: node-rest
+        - name: node-rest-deployment
           image: shayyag/node_rest_ms
           ports:
             - protocol: "TCP"
@@ -24,16 +24,17 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-rest
-  labels:
-    app: web
+  name: node-rest-service
 spec:
-  ports:
+  selector: 
+    app: web
+  ports: 
     - port: 8080
-      name: node-rest
       protocol: "TCP"
-      targetPort: 80
+      targetPort: 8080
       nodePort: 30001
   type: LoadBalancer
+  
+  
 
   
