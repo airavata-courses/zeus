@@ -4,35 +4,35 @@ kind: Deployment
 metadata:
    name: java-ms-deployment 
    labels:
-    app: web
+    run: java-ms-deployment 
 spec:
    replicas: 3
    template:
     metadata:
      labels:
-        app: web    
+        run: java-ms-deployment     
     spec:
        containers:
         - name: java-ms-deployment
           image: shayyag/java_ms 
           ports:
-            - protocol: "TCP"
-              containerPort: 92
+            - containerPort: 8090
+              protocol: TCP  
           
             
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: java-ms-service
+  name: java-ms-deployment
 spec:
   selector: 
-    app: web
+    run: java-ms-deployment 
   ports:
-    - port: 8092
-      protocol: "TCP"
-      targetPort: 8092
-      nodePort: 30003
-  type: LoadBalancer
+    - port: 8090
+      targetPort: 8090  
+      protocol: TCP
+  type: NodePort     
+  
 
   

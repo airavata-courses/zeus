@@ -4,35 +4,35 @@ kind: Deployment
 metadata:
    name: node-express-ms-deployment 
    labels:
-    app: web
+    run: node-express-ms-deployment
 spec:
    replicas: 3
    template:
     metadata:
      labels:
-        app: web    
+        run: node-express-ms-deployment    
     spec:
        containers:
         - name: node-express-ms-deployment
           image: shayyag/node_express_ms 
           ports:
-            - protocol: "TCP"
-              containerPort: 88
-        
+            - containerPort: 3050
+              protocol: TCP
             
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-express-ms-service
+  name: node-express-ms-deployment
 spec:
   selector:
-    app: web   
+    run: node-express-ms-deployment   
   ports:
-    - port: 8088
-      protocol: "TCP"
-      targetPort: 8088
-      nodePort: 30002
-  type: LoadBalancer
+    - port: 3050
+      targetPort: 3050
+      protocol: TCP
+  type: NodePort    
+      
+  
 
   

@@ -4,37 +4,38 @@ kind: Deployment
 metadata:
    name: node-rest-deployment
    labels:
-    app: web
+    run: node-rest-deployment
 spec:
    replicas: 3
    template:
     metadata:
      labels:
-        app: web    
+        run: node-rest-deployment    
     spec:
        containers:
         - name: node-rest-deployment
           image: shayyag/node_rest_ms
           ports:
-            - protocol: "TCP"
-              containerPort: 80
+            - containerPort: 3001
+              protocol: TCP
           
             
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-rest-service
+  name: node-rest-deployment
 spec:
   selector: 
-    app: web
+    run: node-rest-deployment
   ports: 
-    - port: 8080
-      protocol: "TCP"
-      targetPort: 8080
-      nodePort: 30001
-  type: LoadBalancer
+    - port: 3001
+      targetPort: 3001  
+      protocol: TCP
+  type: NodePort  
+    
   
-  
-
-  
+            
+            
+   
+    
