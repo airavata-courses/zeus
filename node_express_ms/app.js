@@ -37,7 +37,7 @@ app.post('/login',function(req,res){
     // console.log(count);
     
     var connection = mysql.createConnection({
-        host     : 'localhost',
+        host     : '149.165.170.230',
         user     : MYSQLCONNECTION.MYSQL_USERNAME,
         password : MYSQLCONNECTION.MYSQL_PASSWORD,
         database : 'zeus_node'
@@ -86,7 +86,7 @@ app.post('/signup',function(req,res){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
     var connection = mysql.createConnection({
-        host     : 'localhost',
+        host     : '149.165.170.230',
         user     : MYSQLCONNECTION.MYSQL_USERNAME,
         password : MYSQLCONNECTION.MYSQL_PASSWORD,
         database : 'zeus_node'
