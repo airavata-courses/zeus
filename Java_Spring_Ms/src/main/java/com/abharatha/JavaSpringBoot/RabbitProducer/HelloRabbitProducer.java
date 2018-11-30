@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 @Service
 public class HelloRabbitProducer extends EndPoint {
 
-	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
+//	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
 	private static final String QUEUE_NAME = "zeus.queue";
 
 	public HelloRabbitProducer() throws IOException, TimeoutException {

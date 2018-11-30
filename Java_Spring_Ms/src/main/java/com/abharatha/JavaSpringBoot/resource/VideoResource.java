@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 @RequestMapping(path = "/search/")
 public class VideoResource {
 
-	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
+//	private static final Logger logger = LogManager.getLogger("com.abharatha.JavaSpringBoot");
 
 	@Autowired
 	private VideoTableDao repository;
