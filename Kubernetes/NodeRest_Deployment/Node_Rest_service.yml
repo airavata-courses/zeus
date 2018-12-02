@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-rest-service
+spec:
+  selector: 
+    app: node-rest-deployment
+  ports: 
+    - port: 3001
+      targetPort: 3001 
+      nodePort: 30001
+      protocol: TCP
+  type: LoadBalancer
+  externalIPs:  
+    - 149.165.168.221

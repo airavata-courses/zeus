@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: java-ms-service
+spec:
+  selector: 
+    app: java-ms-deployment
+  ports:
+    - port: 8090
+      targetPort: 8090
+      nodePort: 30008
+      protocol: TCP
+  type: LoadBalancer
+  externalIPs:  
+    - 149.165.168.221

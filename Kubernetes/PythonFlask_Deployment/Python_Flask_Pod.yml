@@ -1,0 +1,27 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: python-flask-ms-deployment 
+   labels:
+    app: python-flask-ms-deployment
+spec:
+   replicas: 3
+   template:
+    metadata:
+     labels:
+        app: python-flask-ms-deployment    
+    spec:
+       containers:
+        - name: python-flask-ms-deployment
+          image: harithadamarla12/python_flask_ms
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 4000   
+              protocol: TCP 
+
+
+
+
+
+  

@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-flask-ms-service
+spec:
+  selector:
+    app: python-flask-ms-deployment
+  ports:
+    - port: 4000 
+      targetPort: 4000
+      nodePort: 30006
+      protocol: TCP
+  type: LoadBalancer
+  externalIPs:  
+    - 149.165.168.221

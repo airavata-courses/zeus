@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: node-express-ms-deployment 
+   labels:
+    app: node-express-ms-deployment
+spec:
+   replicas: 3
+   template:
+    metadata:
+     labels:
+        app: node-express-ms-deployment    
+    spec:
+       containers:
+        - name: node-express-ms-deployment
+          image: harithadamarla12/node_express_ms 
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 3051
+              protocol: TCP
+              
+           

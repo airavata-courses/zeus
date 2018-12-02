@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-express-ms-service
+spec:
+  selector:
+    app: node-express-ms-deployment   
+  ports:
+    - port: 3051
+      targetPort: 3051
+      nodePort: 30005
+      protocol: TCP
+  type: LoadBalancer 
+  externalIPs:  
+    - 149.165.168.221   

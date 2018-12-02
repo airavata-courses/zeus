@@ -4,35 +4,25 @@ kind: Deployment
 metadata:
    name: node-rest-deployment
    labels:
-    run: node-rest-deployment
+    app: node-rest-deployment
 spec:
    replicas: 3
    template:
     metadata:
      labels:
-        run: node-rest-deployment    
+        app: node-rest-deployment    
     spec:
        containers:
         - name: node-rest-deployment
-          image: shayyag/node_rest_ms
+          image: harithadamarla12/node_rest_ms
+          imagePullPolicy: Always  
           ports:
             - containerPort: 3001
               protocol: TCP
+
+
           
-            
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: node-rest-deployment
-spec:
-  selector: 
-    run: node-rest-deployment
-  ports: 
-    - port: 3001
-      targetPort: 3001  
-      protocol: TCP
-  type: NodePort  
+
     
   
             
