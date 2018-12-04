@@ -175,7 +175,8 @@ app.get('/addQueue', function(req, res){
         // client.connect();
         request({
             method: 'GET',
-            url: 'http://149.165.168.221:30006/search/video/'+req.query.userId + '/' + req.query.category,
+            url: 'http://149.165.168.221:30006/search/video/'+req.session.token + '/' + req.query.category,
+            // url: 'http://149.165.168.221:30006/search/video/'+req.query.userId + '/' + req.query.category,
             // url: urljava1 + req.session.token + '/' + req.query.category,
 
         }, function (err, resp) {
