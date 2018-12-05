@@ -8,7 +8,7 @@ var request = require('request')
 var MYSQLCONNECTION = require('./constants');
 const zk = require('node-zookeeper-client')
 var client;
-var port='30009'
+var port='3001'
 var app = express();
 var passport = require('passport');
 var auth = require('./auth');
