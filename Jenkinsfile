@@ -14,7 +14,7 @@ pipeline {
       steps{
         dir('zeus/python_flask_ms'){
           script {
-            docker.build registry + ':$BUILD_NUMBER'
+            dockerImage = docker.build registry + ':$BUILD_NUMBER'
           }
         }
       }
