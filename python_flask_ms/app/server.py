@@ -1,3 +1,5 @@
+import logging
+# from logging.handlers import RotatingFileHandler
 from flask import Flask
 from flask import request, jsonify
 from flaskext.mysql import MySQL
@@ -59,6 +61,7 @@ def callback(ch, method, properties, body):
 
 def python_flask_ms():
     CORS(app)
+    count = {'value': 0}
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER']='root'
     app.config['MYSQL_DATABASE_PASSWORD']='root'
@@ -76,6 +79,10 @@ def python_flask_ms():
 
     @app.route('/', methods = ['POST', 'GET'])
     def route():
+        # app.logger.warning('A warning occurred (%d apples)', 42)
+        # app.logger.error('An error occurred')
+        # app.logger.info('Doing Something')
+
         if request.method=='GET':
             return "hello world"
         else:
@@ -83,24 +90,30 @@ def python_flask_ms():
 
     @app.route("/getVideos", methods=['GET'])
     def getVideos():
+        count['value']+=1
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from videotable")
         data = cursor.fetchall()
         return jsonify(data)
+
+    @app.route("/getServerHitCount", methods=['GET'])
+    def getServerHitCount():
+        return "The number of times /getVideos is hit = " + str(count['value'])
 
     @app.route("/getPrefs", methods = ['GET'])
     def getPrefs():
         cursor = mysql.connect().cursor()
         cursor.execute("SELECT * from userpreferencestable")
         data = cursor.fetchall()
-        print("testing")
-        print(data)
+        app.logger.info('testing')
+        # print("testing")
+        app.logger.info(data)
         return jsonify(data)
 
     @app.route("/getRecommendations", methods=['GET'])
     def getRecommendations():
         cursor = mysql.connect().cursor()
-        email = 'haritha.cbit2010@gmail.com'
+        email = ''
         try:
             email = request.json['email']
         except:
@@ -135,7 +148,8 @@ my_client = kz_client.KazooClient(hosts='149.165.170.230:2181')
 
 def my_listener(state):
     if state == kz_client.KazooState.CONNECTED:
-        print("Client connected !")
+        app.logger.info('Client connected!')
+        # print("Client connected !")
 
 
 my_client.add_listener(my_listener)
@@ -160,23 +174,32 @@ if (my_client.exists(homepath + nodepath + s) is None):
 
 # # Print the version of a node and its data
 data, stat = my_client.get(homepath + nodepath + s)
-print(" data: %s" % (data.decode("utf-8")))
+app.logger.info("data: %s" % (data.decode("utf-8")))
+# print(" data: %s" % (data.decode("utf-8")))
 #
 # # List the children
 children = my_client.get_children(homepath + nodepath)
 length=len(children)
-print("There are %s children with names %s" % (len(children), children))
+app.logger.info("There are %s children with names %s" % (len(children), children))
+# print("There are %s children with names %s" % (len(children), children))
 
 ##LoadBalancer
 randomno=random.randint(0,length-1)
 print(children[randomno])
 data1, stat = my_client.get(homepath+nodepath+'/'+children[randomno])
-print(" random node for service discovery: %s" % (data1.decode("utf-8")))
+app.logger.info("random node for service discovery: %s" % (data1.decode("utf-8")))
+# print(" random node for service discovery: %s" % (data1.decode("utf-8")))
 
 
 if __name__ == '__main__':
-   app = python_flask_ms()
-   app.run("0.0.0.0",port)
+    # handler = RotatingFileHandler('pythonFlask.log', maxBytes=10000, backupCount=1)
+    # handler.setLevel(logging.DEBUG)
+    # app.logger.addHandler(handler)
+    logging.basicConfig(filename='ZeusPython.log', level=logging.INFO)
+    logging.info('Started')
+    app = python_flask_ms()
+    app.run("0.0.0.0",port)
+    logging.info('Finished')
 
 
 
