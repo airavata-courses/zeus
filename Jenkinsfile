@@ -9,6 +9,7 @@ pipeline {
       steps{
         dir('Java_Spring_Ms'){
           script {
+		    sh 'mvn clean install'
             dockerImage = docker.build registry + ':$BUILD_NUMBER'
           }
         }
