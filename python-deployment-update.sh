@@ -1,3 +1,3 @@
 #!/bin/sh
-sudo su -s /bin/bash jenkins
+sudo su
 kubectl get deployments
