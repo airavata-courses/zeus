@@ -5,11 +5,6 @@ pipeline {
   }
   agent any
   stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/airavata-courses/zeus.git'
-      }
-    }
     stage('Building image') {
       steps{
         dir('zeus/python_flask_ms'){
