@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Building image') {
       steps{
-        dir('zeus/python_flask_ms'){
+        dir('python_flask_ms'){
           script {
             dockerImage = docker.build registry + ':$BUILD_NUMBER'
           }
