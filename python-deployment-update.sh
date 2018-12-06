@@ -1,3 +1,4 @@
 #!/bin/sh
-sudo su
+sudo -s
 kubectl get deployments
+exit
