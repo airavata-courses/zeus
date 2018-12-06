@@ -189,7 +189,7 @@ def python_flask_ms():
 # data1, stat = my_client.get(homepath+nodepath+'/'+children[randomno])
 # app.logger.info("random node for service discovery: %s" % (data1.decode("utf-8")))
 # # print(" random node for service discovery: %s" % (data1.decode("utf-8")))
-#
+# Testing Build
 
 if __name__ == '__main__':
     # handler = RotatingFileHandler('pythonFlask.log', maxBytes=10000, backupCount=1)
