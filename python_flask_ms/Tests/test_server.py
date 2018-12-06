@@ -22,6 +22,7 @@ class MyTestClass(unittest.TestCase):
     def test_python_flask_ms_server(self):
         result = self.app.get('/')
         self.assertEqual(result.status_code, 200)
+        exit()
 
 if __name__ == '__main__':
     unittest.main()
