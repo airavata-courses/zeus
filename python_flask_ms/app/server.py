@@ -143,53 +143,53 @@ def python_flask_ms():
     return app
 
 
-my_client = kz_client.KazooClient(hosts='149.165.170.230:2181')
-
-
-def my_listener(state):
-    if state == kz_client.KazooState.CONNECTED:
-        app.logger.info('Client connected!')
-        # print("Client connected !")
-
-
-my_client.add_listener(my_listener)
-my_client.start(timeout=5)
-
-
-homepath="/zeus"
-if (my_client.exists(homepath) is None):
-    my_client.create(homepath)
-
-nodepath="/python"
-if (my_client.exists(homepath+nodepath) is None):
-    my_client.create(homepath+nodepath)
-
-ip= requests.get('https://ip.42.pl/raw').text
-buffer=ip+':'+port
-b=buffer.encode('utf-8')
-s="/python" + ip + port
-
-if (my_client.exists(homepath + nodepath + s) is None):
-    my_client.create(homepath + nodepath + s, b, ephemeral=True)
-
-# # Print the version of a node and its data
-data, stat = my_client.get(homepath + nodepath + s)
-app.logger.info("data: %s" % (data.decode("utf-8")))
-# print(" data: %s" % (data.decode("utf-8")))
+# my_client = kz_client.KazooClient(hosts='149.165.170.230:2181')
 #
-# # List the children
-children = my_client.get_children(homepath + nodepath)
-length=len(children)
-app.logger.info("There are %s children with names %s" % (len(children), children))
-# print("There are %s children with names %s" % (len(children), children))
-
-##LoadBalancer
-randomno=random.randint(0,length-1)
-print(children[randomno])
-data1, stat = my_client.get(homepath+nodepath+'/'+children[randomno])
-app.logger.info("random node for service discovery: %s" % (data1.decode("utf-8")))
-# print(" random node for service discovery: %s" % (data1.decode("utf-8")))
-
+#
+# def my_listener(state):
+#     if state == kz_client.KazooState.CONNECTED:
+#         app.logger.info('Client connected!')
+#         # print("Client connected !")
+#
+#
+# my_client.add_listener(my_listener)
+# my_client.start(timeout=5)
+#
+#
+# homepath="/zeus"
+# if (my_client.exists(homepath) is None):
+#     my_client.create(homepath)
+#
+# nodepath="/python"
+# if (my_client.exists(homepath+nodepath) is None):
+#     my_client.create(homepath+nodepath)
+#
+# ip= requests.get('https://ip.42.pl/raw').text
+# buffer=ip+':'+port
+# b=buffer.encode('utf-8')
+# s="/python" + ip + port
+#
+# if (my_client.exists(homepath + nodepath + s) is None):
+#     my_client.create(homepath + nodepath + s, b, ephemeral=True)
+#
+# # # Print the version of a node and its data
+# data, stat = my_client.get(homepath + nodepath + s)
+# app.logger.info("data: %s" % (data.decode("utf-8")))
+# # print(" data: %s" % (data.decode("utf-8")))
+# #
+# # # List the children
+# children = my_client.get_children(homepath + nodepath)
+# length=len(children)
+# app.logger.info("There are %s children with names %s" % (len(children), children))
+# # print("There are %s children with names %s" % (len(children), children))
+#
+# ##LoadBalancer
+# randomno=random.randint(0,length-1)
+# print(children[randomno])
+# data1, stat = my_client.get(homepath+nodepath+'/'+children[randomno])
+# app.logger.info("random node for service discovery: %s" % (data1.decode("utf-8")))
+# # print(" random node for service discovery: %s" % (data1.decode("utf-8")))
+#
 
 if __name__ == '__main__':
     # handler = RotatingFileHandler('pythonFlask.log', maxBytes=10000, backupCount=1)
