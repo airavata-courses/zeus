@@ -10,5 +10,4 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - cd python_flask_ms
   - python -m unittest discover
