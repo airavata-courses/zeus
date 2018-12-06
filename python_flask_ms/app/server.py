@@ -84,7 +84,7 @@ def python_flask_ms():
         # app.logger.info('Doing Something')
 
         if request.method=='GET':
-            return "Testing CI/CD workflow. Will it work?"
+            return "Final fulll end to end Testing CI/CD workflow. Will it work?"
         else:
             return "post req"
 
