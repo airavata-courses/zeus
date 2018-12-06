@@ -1,5 +1,6 @@
 import unittest
 from app import server
+import sys
 
 class MyTestClass(unittest.TestCase):
 
@@ -17,12 +18,13 @@ class MyTestClass(unittest.TestCase):
         self.app.testing = True
 
     def tearDown(self):
+        # return
         pass
 
     def test_python_flask_ms_server(self):
         result = self.app.get('/')
         self.assertEqual(result.status_code, 200)
-        exit()
+
 
 if __name__ == '__main__':
     unittest.main()
