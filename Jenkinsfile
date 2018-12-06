@@ -9,8 +9,7 @@ pipeline {
       steps{
         dir('python_flask_ms'){
           script {
-            dockerImage = docker.build registry + ':$BUILD_NUMBER'
-            dockerImage = docker.build registry + ':latest'
+            dockerImage = docker.build registry + ':$BUILD_NUMBER' registry + ':latest'
           }
         }
       }
