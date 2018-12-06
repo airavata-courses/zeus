@@ -84,7 +84,7 @@ def python_flask_ms():
         # app.logger.info('Doing Something')
 
         if request.method=='GET':
-            return "Testing Docker images update"
+            return "Haritha is good girl"
         else:
             return "post req"
 
