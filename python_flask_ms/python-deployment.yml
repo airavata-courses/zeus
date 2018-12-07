@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-flask-ms-deployment
+  labels:
+    app: python-flask-ms
+    type: back-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-flask-ms
+  template:
+    metadata:
+     name: python-flask-ms-pod
+     labels:
+       app: python-flask-ms
+    spec:
+     containers:
+      - name: python-flask-ms-deployment
+        imagePullPolicy: Always
+        image: aravindbharatha/python-ms-build
