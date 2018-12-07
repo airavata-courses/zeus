@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-rest-ms-deployment
+  labels:
+    app: node-rest-ms
+    type: front-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node-rest-ms
+  template:
+    metadata:
+     name: node-rest-ms-pod
+     labels:
+       app: node-rest-ms
+    spec:
+     containers:
+      - name: node-rest-ms-deployment
+        imagePullPolicy: Always
+        image: aravindbharatha/node-rest-ms-build

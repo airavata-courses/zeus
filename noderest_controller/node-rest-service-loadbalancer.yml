@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-rest-ms-service
+spec:
+ type: LoadBalancer
+ ports:
+  - targetPort: 3001
+    port: 3001
+    nodePort: 30009
+ selector:
+  app: node-rest-ms
+ externalIPs:
+  - 149.165.170.230
