@@ -21,7 +21,7 @@ app.get('/',function(req,res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    return res.send('hello');    
+    return res.send('Aravind likes girls');    
 });
 // count++;
 app.get('/getRequestHitCount',function(req,res){
