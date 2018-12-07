@@ -12,7 +12,7 @@ public class Testingpods {
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String searchVideos() {
-		return "Testing pods";
+		return "Team Zeus";
 
 	}
 }
