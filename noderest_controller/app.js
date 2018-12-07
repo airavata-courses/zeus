@@ -35,8 +35,17 @@ console.log("Controller is running at 3001");
 app.listen(port);
 
 app.get('/',function(req,res){
-    return res.render('index');  
-      
+    if (req.session.token) {
+        console.log("fixing bug");
+        // res.cookie('token', req.session.token);
+        // console.log(req.session.token);
+        res.render('home');
+    } else{
+        console.log("fixing bug else");
+        res.render('index');
+    }
+    // return res.render('index');  
+
 });
 
 app.get('/auth/google', passport.authenticate('google', {
@@ -55,13 +64,22 @@ app.get('/auth/google/callback',
 
 
 app.get('/login',function(req,res){
-    return res.render('index');    
+
+    if (req.session.token) {
+        console.log("fixing bug");
+        // response.cookie('token', req.session.token);
+        // console.log(req.session.token);
+        res.render('home');
+    } else{
+        console.log("fixing bug else");
+        res.render('index');
+    }
+    // return res.render('index');    
 });
 
 app.post('/login', function(req,res){
     var email= req.body.uname;
     var password = req.body.psw;
-   
     request.post(
         //urlnode1,
          'http://js-170-230.jetstream-cloud.org:30003/login',
