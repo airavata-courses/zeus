@@ -35,7 +35,8 @@ console.log("Controller is running at 3001");
 app.listen(port);
 
 app.get('/',function(req,res){
-    return res.render('index');    
+    return res.render('index');  
+      
 });
 
 app.get('/auth/google', passport.authenticate('google', {
