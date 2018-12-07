@@ -20,8 +20,8 @@ app.listen(port);
 app.get('/',function(req,res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-    return res.send('Aravind likes girls');    
+    return res.send('NodeExpress endpoint');
+    // return res.send('Aravind likes girls');    
 });
 // count++;
 app.get('/getRequestHitCount',function(req,res){
