@@ -84,7 +84,7 @@ def python_flask_ms():
         # app.logger.info('Doing Something')
 
         if request.method=='GET':
-            return "Haritha is good girl"
+            return "Tesing Python- HelloWorld2"
         else:
             return "post req"
 
