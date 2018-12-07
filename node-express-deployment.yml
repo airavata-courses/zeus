@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-express-ms-deployment
+  labels:
+    app: node-express-ms
+    type: back-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node-express-ms
+  template:
+    metadata:
+     name: node-express-ms-pod
+     labels:
+       app: node-express-ms
+    spec:
+     containers:
+      - name: node-express-ms-deployment
+        imagePullPolicy: Always
+        image: aravindbharatha/node-express-ms-build
