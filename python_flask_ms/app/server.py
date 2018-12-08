@@ -84,7 +84,7 @@ def python_flask_ms():
         # app.logger.info('Doing Something')
 
         if request.method=='GET':
-            return "For CI/CD Demo"
+            return "For CI/CD Demo- Dec 7th"
         else:
             return "post req"
 
